@@ -1,0 +1,39 @@
+#!/bin/bash
+current=$PWD
+repo_root="$HOME/eng/cea"
+tracked_hook="$repo_root/.githooks/pre-commit"
+execd_hook="$repo_root/.git/hooks/pre-commit"
+
+# First check diff between hook in .githooks and that in $GIT_DIR/hooks.
+# If different update and abort with message.
+if [ $tracked_hook -nt $execd_hook ]; then
+	cp --backup $tracked_hook $execd_hook
+	echo "Hook was out-of-date. Re-run git commit to use new hook."
+	exit 1
+fi
+
+# Next run gentests.py to produce test binary.
+python "$repo_root/gentests.py" "$repo_root/tests/"
+if [ $? -eq 1 ]; then
+	# fail
+	echo "gentests.py failed."
+	exit 1
+fi
+
+# Next is make:
+# - checks buildsystem is OK and CMakeLists.txt files work sensibly.
+# - checks code builds (duh).
+# - produces library and test binary (if they weren't already there).
+cmake --build "$repo_root"
+if [ $? -eq 1 ]; then
+	# fail
+	exit 1
+fi
+
+# Next run test binary
+# - is the code working??
+$repo_root/bin/all_tests
+if [ $? -eq 1 ]; then
+	# fail
+	exit 1
+fi
