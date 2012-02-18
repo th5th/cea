@@ -1,0 +1,13 @@
+# Ignore all cmake junk except for CMakeLists.txt files.
+# (this means cmake needs to be run in a pulled repo before
+# any binaries can be built)
+bin/*
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*/.deps/
+*/CMakeCache.txt
+*/CMakeFiles/
+*/cmake_install.cmake
+*/Makefile
