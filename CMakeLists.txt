@@ -4,5 +4,5 @@ project(cea)
 set(cea_VERSION_MAJOR 0)
 set(cea_VERSION_MINOR 1)
 
-add_subdirectory(lib bin)
+add_subdirectory(lib)
 add_subdirectory(tests bin)
