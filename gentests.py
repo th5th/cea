@@ -73,7 +73,6 @@ with open(path+ocmakelists, 'w') as f:
 		add_exec_cmd += (' ' + fle)
 	add_exec_cmd += ')\n'
 	f.write(add_exec_cmd)
-	f.write('set_target_properties({0} PROPERTIES COMPILE_FLAGS "--std=c++0x")\n'.format(oexec))
 	f.write('target_link_libraries({0} {1})\n'.format(oexec, project))
 
 exit(0)

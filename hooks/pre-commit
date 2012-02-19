@@ -1,39 +1,45 @@
 #!/bin/bash
 current=$PWD
 repo_root="$HOME/eng/cea"
-tracked_hook="$repo_root/.githooks/pre-commit"
+tracked_hook="$repo_root/hooks/pre-commit"
 execd_hook="$repo_root/.git/hooks/pre-commit"
+
+# Failure handling function
+fail()
+{
+	echo "Quitting without commit."
+	exit 1
+}
 
 # First check diff between hook in .githooks and that in $GIT_DIR/hooks.
 # If different update and abort with message.
 if [ $tracked_hook -nt $execd_hook ]; then
 	cp --backup $tracked_hook $execd_hook
-	echo "Hook was out-of-date. Re-run git commit to use new hook."
-	exit 1
+	echo "Hook was out-of-date. Re-run 'git commit' to use new hook."
+	fail
 fi
 
 # Next run gentests.py to produce test binary.
 python "$repo_root/gentests.py" "$repo_root/tests/"
-if [ $? -eq 1 ]; then
-	# fail
+if [ $? -ne 0 ]; then
 	echo "gentests.py failed."
-	exit 1
+	fail
 fi
 
-# Next is make:
-# - checks buildsystem is OK and CMakeLists.txt files work sensibly.
-# - checks code builds (duh).
-# - produces library and test binary (if they weren't already there).
+# Next is make
 cmake --build "$repo_root"
-if [ $? -eq 1 ]; then
-	# fail
-	exit 1
+if [ $? -ne 0 ]; then
+	echo "Cmake failed."
+	fail
 fi
 
-# Next run test binary
-# - is the code working??
+# Run test binary
 $repo_root/bin/all_tests
-if [ $? -eq 1 ]; then
-	# fail
-	exit 1
+if [ $? -ne 0 ]; then
+	echo "Test suite failed."
+	fail
 fi
+
+echo "Proceeding to commit message."
+sleep 1.5
+exit 0
