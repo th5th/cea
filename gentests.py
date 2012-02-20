@@ -11,8 +11,8 @@ oheader = omain.replace('.cpp', '.h')
 oexec = omain.replace('.cpp', '')
 ocmakelists = 'CMakeLists.txt'
 
-failure_msg = 'failed.'
-success_msg = 'succeeded.'
+failure_msg = 'Test failed.'
+success_msg = 'Test succeeded.'
 
 def get_fn(fl):
 	with open(path+fl, 'r') as f:
@@ -53,8 +53,9 @@ with open(path+omain, 'w') as f:
 	for fn in test_fns:
 		# Trim the unnecessary type from the front.
 		fn = fn[5:]
+		f.write('\treturn_val = {0};\n'.format(fn))
 		f.write('\tstd::cout << "Test {0}: ";\n'.format(fn))
-		f.write('\tif(!(return_val = {0}))\n'.format(fn))
+		f.write('\tif(!return_val)\n'.format(fn))
 		f.write('\t\tstd::cout << "{0}" << std::endl;\n'.format(success_msg))
 		f.write('\telse\n')
 		f.write('\t\tstd::cout << "{0}" << std::endl;\n\n'.format(failure_msg))
