@@ -1,131 +1,145 @@
 #ifndef __CEA_OP_H
 #define __CEA_OP_H
 
+#include <cea.h>
+
 namespace cea
 {
 	// Initialisers
-	class OpInitRand : public Operator
+	template <typename T>
+	class OpInitRand : public OpGenome<T>
 	{
 		public:
 			// Constructors
-			OpInitRand();
-			OpInitRand(RVar * rv);
-
-			void apply_to(Popn pop);
+			OpInitRand(RVar<T>* src) { source = src; };
 
 		private:
-			// Various
+			RVar<T>* source;
+			void apply_tog(Genome<T>& g)
+			{
+				typename std::list<T>::iterator it;
+				for(it = g.genes.begin(); it != g.genes.end(); ++it)
+					*it = source->rand();
+			}
 	};
 
-	class OpInitDeterm : public Operator
+	template <typename T>
+	class OpInitDeterm : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
 	};
 
 	// Selectors
-	class OpSelTournament : public Operator
+	template <typename T>
+	class OpSelTournament : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
 	};
 
-	class OpSelRoulette : public Operator
+	template <typename T>
+	class OpSelRoulette : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
 	};
 
-	class OpSelTruncation : public Operator
+	template <typename T>
+	class OpSelTruncation : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
 	};
 
 	// Crossovers
-	class OpXoKpoint : public Operator
+	template <typename T>
+	class OpXoKpoint : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
 	};
 
-	class OpXoProportionate : public Operator
+	template <typename T>
+	class OpXoProportionate : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
 	};
 
 	// Mutators
-	class OpMutOffset : public Operator
+	template <typename T>
+	class OpMutOffset : public OpGenome<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
-
 		private:
 			// Various
+			void apply_tog(Pop<T>& p);
 	};
 
-	class OpMutGeneShuffle : public Operator
+	template <typename T>
+	class OpMutGeneShuffle : public OpGenome<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
-
 		private:
 			// Various
+			void apply_tog(Pop<T>& p);
 	};
 
 	// Terminators
-	class OpTermFixedTime : public Operator
+	template <typename T>
+	class OpTermFixedTime : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
 	};
 
-	class OpTermFitnessThresh : public Operator
+	template <typename T>
+	class OpTermFitnessThresh : public OpPop<T>
 	{
 		public:
 			// Constructors
 
-			void apply_to(Popn pop);
+			void apply_to(Pop<T>& p);
 
 		private:
 			// Various
