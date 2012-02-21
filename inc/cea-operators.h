@@ -15,12 +15,7 @@ namespace cea
 
 		private:
 			RVar<T>* source;
-			void apply_tog(Genome<T>& g)
-			{
-				typename std::list<T>::iterator it;
-				for(it = g.genes.begin(); it != g.genes.end(); ++it)
-					*it = source->rand();
-			}
+			void apply_tog(Genome<T>& g);
 	};
 
 	template <typename T>

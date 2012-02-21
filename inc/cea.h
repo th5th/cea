@@ -9,36 +9,42 @@ namespace cea
 {
 	// Data structures.
 	template <typename T>
-	struct Genome
+	class Genome
 	{
-		double fitness;
-		bool avail;
-		std::list<T> genes;
+		public:
+			Genome();
+			Genome(int size);
+
+			unsigned int size() { return genes.size(); };
+			void resize(unsigned int size) { genes.resize(size); };
+			typename std::list<T>::iterator begin() { return genes.begin(); };
+			typename std::list<T>::iterator end() { return genes.end(); };
+
+			double get_fitness() { return fitness; };
+			void set_fitness(double f) { fitness = f; };
+			bool is_avail() { return avail; };
+			void set_avail(bool a) { avail = a; };
+
+		private:
+			double fitness;
+			bool avail;
+			std::list<T> genes;
 	};
 
 	template <typename T>
-	struct Pop
+	class Pop
 	{
-		Pop(int p_s, int g_s)
-		{
-			pop_size = p_s;
-			gno_size = g_s;
+		public:
+			Pop(int p_s, int g_s);
 
-			pop.resize(p_s);
-			typename std::vector< Genome<T> >::iterator it;
-			for(it = pop.begin(); it != pop.end(); ++it)
-				it->genes.resize(g_s);
-		}
+			unsigned int size() { return pop.size(); };
+			void resize(unsigned int size) { pop.resize(size); };
+			typename std::vector< Genome<T> >::iterator begin() { return pop.begin(); };
+			typename std::vector< Genome<T> >::iterator end() { return pop.end(); };
+			// May want to add direct random access - []?
 
-		// etc.
-		~Pop()
-		{
-			// hold on...
-		}
-
-		int pop_size;
-		int gno_size;
-		std::vector< Genome<T> > pop;
+		private:
+			std::vector< Genome<T> > pop;
 	};
 
 	// Operator classes.
@@ -53,12 +59,8 @@ namespace cea
 	class OpGenome : public OpPop<T>
 	{
 		public:
-			void apply_to(Pop<T>& p)
-			{
-				typename std::vector< Genome<T> >::iterator it;
-				for(it = p.pop.begin(); it != p.pop.end(); ++it)
-					apply_tog(*it);
-			}
+			void apply_to(Pop<T>& p);
+
 		private:
 			virtual void apply_tog(Genome<T>& g) = 0;
 	};

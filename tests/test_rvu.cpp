@@ -18,9 +18,9 @@ bool test_rvu()
 
 	std::vector< Genome<double> >::iterator it_gno;
 	std::list<double>::iterator it_genes;
-	for(it_gno = my_pop.pop.begin(); it_gno != my_pop.pop.end(); ++it_gno)
+	for(it_gno = my_pop.begin(); it_gno != my_pop.end(); ++it_gno)
 	{
-		for(it_genes = it_gno->genes.begin(); it_genes != it_gno->genes.end(); ++it_genes)
+		for(it_genes = it_gno->begin(); it_genes != it_gno->end(); ++it_genes)
 			std::cout << *it_genes << " ";
 		std::cout << std::endl;
 	}
