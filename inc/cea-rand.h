@@ -91,17 +91,23 @@ namespace cea
 	};
 
 	// Cea RVars
-	class RVarUniform : public RVar<double>
+	template <typename T>
+	class RVarUniform : public RVar<T>
 	{
 		public:
 			// Constructors
-			RVarUniform(uint64_t seed, Prng * src);
+			RVarUniform(Prng * src, uint64_t seed);
 
+			void set_interval(T a, T b);
 			void set_source(Prng * src);
 			void srand(uint64_t seed);
-			double rand();
+			T rand();
 
 		private:
+			// Bounds
+			T lower;
+			T upper;
+
 			// PRNG
 			Prng * source;
 	};
@@ -110,7 +116,7 @@ namespace cea
 	{
 		public:
 			// Constructors
-			RVarNormal(uint64_t seed, Prng * src);
+			RVarNormal(Prng * src, uint64_t seed);
 
 			void set_source(Prng * src);
 			void srand(uint64_t seed);
@@ -125,7 +131,7 @@ namespace cea
 	{
 		public:
 			// Constructors
-			RVarLogNormal(uint64_t seed, Prng * src);
+			RVarLogNormal(Prng * src, uint64_t seed);
 
 			void set_source(Prng * src);
 			void srand(uint64_t seed);
@@ -140,7 +146,7 @@ namespace cea
 	{
 		public:
 			// Constructors
-			RVarPoisson(uint64_t seed, Prng * src);
+			RVarPoisson(Prng * src, uint64_t seed);
 
 			void set_source(Prng * src);
 			void srand(uint64_t seed);

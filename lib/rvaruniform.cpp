@@ -2,24 +2,56 @@
 
 namespace cea
 {
-	RVarUniform::RVarUniform(uint64_t seed, Prng * src)
+	template <typename T>
+	RVarUniform<T>::RVarUniform(Prng * src, uint64_t seed)
 	{
 		set_source(src);
 		srand(seed);
 	}
 
-	void RVarUniform::set_source(Prng * src)
+	template <typename T>
+	void RVarUniform<T>::set_interval(T a, T b)
+	{
+		if(a < b)
+		{
+			lower = a;
+			upper = b;
+		}
+		else
+		{
+			lower = b;
+			upper = a;
+		}
+	}
+
+	template <typename T>
+	void RVarUniform<T>::set_source(Prng * src)
 	{
 		source = src;
 	}
 
-	void RVarUniform::srand(uint64_t seed)
+	template <typename T>
+	void RVarUniform<T>::srand(uint64_t seed)
 	{
 		source->srand(seed);
 	}
 
-	double RVarUniform::rand()
+	template <>
+	uint64_t RVarUniform<uint64_t>::rand()
 	{
-		return (static_cast<double>(source->rand()) / UINT64_MAX);
+		uint64_t rv =  source->rand() % (upper - lower);
+		return rv + lower;
 	}
+	
+	template <>
+	double RVarUniform<double>::rand()
+	{
+		double rv = static_cast<double>(source->rand()) / UINT64_MAX;
+		rv *= (upper - lower);
+		return rv + lower;
+	}
+
+	template class RVarUniform<uint64_t>;
+	template class RVarUniform<double>;
+
 }
