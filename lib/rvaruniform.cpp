@@ -3,37 +3,26 @@
 namespace cea
 {
 	template <typename T>
-	RVarUniform<T>::RVarUniform(Prng * src, uint64_t seed)
+	RVarUniform<T>::RVarUniform(Prng * src, T a, T b)
 	{
+		if(a != 0 || b != 0)
+			set_interval(a, b);
+
 		set_source(src);
-		srand(seed);
 	}
 
 	template <typename T>
 	void RVarUniform<T>::set_interval(T a, T b)
 	{
-		if(a < b)
-		{
-			lower = a;
-			upper = b;
-		}
-		else
-		{
-			lower = b;
-			upper = a;
-		}
+		lower = a < b ? a : b;
+		upper = a > b ? a : b;
+		// deal with a == b
 	}
 
 	template <typename T>
 	void RVarUniform<T>::set_source(Prng * src)
 	{
 		source = src;
-	}
-
-	template <typename T>
-	void RVarUniform<T>::srand(uint64_t seed)
-	{
-		source->srand(seed);
 	}
 
 	template <>
@@ -53,5 +42,4 @@ namespace cea
 
 	template class RVarUniform<uint64_t>;
 	template class RVarUniform<double>;
-
 }

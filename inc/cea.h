@@ -110,7 +110,6 @@ namespace cea
 	class RVar
 	{
 		public:
-			virtual void srand(uint64_t seed) = 0;
 			virtual T rand() = 0;
 	};
 }

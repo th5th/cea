@@ -8,86 +8,63 @@
 
 namespace cea
 {
-	// Cea PRNGs
-	class PrngLCG : public Prng
+	/*
+	   Cea PRNGs
+	   All PRNGs are inspired by the work of George Marsaglia
+	   and the excellent advice in Numerical Recipes.
+	*/
+
+	/*
+	   Generator formed from an XOR shift and an MLCG.
+	   + Period: ~=1.8 x 10^19 
+	   + Speed: Fast
+	*/
+	class PrngMLCGXORShift : public Prng
 	{
 		public:
-			// Constructors
-			PrngLCG(uint64_t seed = 1);
+			PrngMLCGXORShift (uint64_t seed = 1);
 
-			void srand(uint64_t seed);
 			uint64_t rand();
-
+			void srand(uint64_t seed);
 		private:
 			// State
 			uint64_t x;
 	};
 
-	class PrngISAAC : public Prng
+	/*
+	   Generator combining an XOR shift with an MWC generator.
+	   + Period: ~= 8.5 x 10^37
+	   + Speed: Medium
+	*/
+	class PrngMWCXORShift : public Prng
 	{
 		public:
-			PrngISAAC(uint64_t seed = 1);
+			PrngMWCXORShift(uint64_t seed = 1);
 
-			uint64_t rand();
 			void srand(uint64_t seed);
+			uint64_t rand();
 
 		private:
-			struct randctx
-			{
-				randctx();
-				~randctx();
-
-				uint64_t randcnt;
-				uint64_t* randrsl;
-				uint64_t* randmem;
-				uint64_t randa;
-				uint64_t randb;
-				uint64_t randc;
-			};
-
-			void randinit(randctx* ctx);
-			void isaac(randctx* ctx);
-
-			uint64_t ind(uint64_t* mm, uint64_t x);
-			void rngstep(uint64_t mix, uint64_t& a, uint64_t& b, uint64_t*& mm, uint64_t*& m, uint64_t*& m2, uint64_t*& r, uint64_t& x, uint64_t& y);
-			void shuffle(uint64_t& a, uint64_t& b, uint64_t& c, uint64_t& d, uint64_t& e, uint64_t& f, uint64_t& g, uint64_t& h);
-
-			randctx m_rc;   
+			uint64_t x, y;
 	};
 
-	class PrngXORshift : public Prng
+	/*
+	   KISS generator formed from 2 XOR shifts,
+	   an LCG and an MWC.
+	   + Period: ~= 3.1 x 10^57
+	   + Speed: Slow
+	*/
+	class PrngKISS : public Prng
 	{
 		public:
-			PrngXORshift(uint64_t seed = 1);
+			PrngKISS(uint64_t seed = 1);
 
 			uint64_t rand();
 			void srand(uint64_t seed);
 
 		private:
-			uint64_t u, v, w, x, y, z;
-	};
-
-	class PrngCMWC : public Prng
-	{
-		public:
-			PrngCMWC(uint64_t seed = 1);
-
-			uint64_t rand();
-			void srand(uint64_t seed);
-
-		private:
-			// state
-	};
-
-	class PrngMT19937 : public Prng
-	{
-		public:
-			PrngMT19937(uint64_t seed = 5489);
-
-			uint64_t rand();
-			void srand(uint64_t seed);
-		private:
-			// state
+			// State
+			uint64_t u, v, w;
 	};
 
 	// Cea RVars
@@ -96,11 +73,10 @@ namespace cea
 	{
 		public:
 			// Constructors
-			RVarUniform(Prng * src, uint64_t seed);
+			RVarUniform(Prng * src, T a = 0, T b = 0);
 
 			void set_interval(T a, T b);
 			void set_source(Prng * src);
-			void srand(uint64_t seed);
 			T rand();
 
 		private:

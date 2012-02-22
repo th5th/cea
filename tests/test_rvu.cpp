@@ -10,9 +10,8 @@ bool test_rvu()
 {
 	Pop<uint64_t> my_pop(10, 3);
 
-	PrngISAAC prng;
-	RVarUniform<uint64_t> rv(&prng, 10);
-	rv.set_interval(0, 1000);
+	PrngMWCXORShift prng;
+	RVarUniform<uint64_t> rv(&prng, 0, 1000);
 	OpInitRand<uint64_t> my_rand(&rv);
 
 	my_rand.apply_to(my_pop);

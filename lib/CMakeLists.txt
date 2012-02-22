@@ -6,7 +6,8 @@ add_library(
 		opgenome.cpp
 		opinitrand.cpp
 		popgen.cpp
-		prngisaac.cpp
-		prnglcg.cpp
+		prngmlcgxorshift.cpp
+		prngmwcxorshift.cpp
+		prngkiss.cpp
 		rvaruniform.cpp
 )
