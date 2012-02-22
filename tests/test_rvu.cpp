@@ -8,9 +8,10 @@ using namespace cea;
 
 bool test_rvu()
 {
-	Pop<uint64_t> my_pop(10, 3);
+	//Pop<uint64_t> my_pop(10, 3);
 
-	PrngMWCXORShift prng;
+	PrngKISS prng;
+	/*
 	RVarUniform<uint64_t> rv(&prng, 0, 1000);
 	OpInitRand<uint64_t> my_rand(&rv);
 
@@ -24,6 +25,9 @@ bool test_rvu()
 			std::cout << *it_genes << " ";
 		std::cout << std::endl;
 	}
+	*/
+	for(int i = 0; i < 1e9; ++i)
+		prng.rand();
 
 	return 0;
 }

@@ -16,8 +16,8 @@ namespace cea
 
 	/*
 	   Generator formed from an XOR shift and an MLCG.
-	   + Period: ~=1.8 x 10^19 
-	   + Speed: Fast
+	   + Period: ~=1.8 x 10^19 (1x)
+	   + Speed: Fast (1x)
 	*/
 	class PrngMLCGXORShift : public Prng
 	{
@@ -33,8 +33,8 @@ namespace cea
 
 	/*
 	   Generator combining an XOR shift with an MWC generator.
-	   + Period: ~= 8.5 x 10^37
-	   + Speed: Medium
+	   + Period: ~= 8.5 x 10^37 (~10^19x)
+	   + Speed: Medium (~0.8x)
 	*/
 	class PrngMWCXORShift : public Prng
 	{
@@ -51,8 +51,8 @@ namespace cea
 	/*
 	   KISS generator formed from 2 XOR shifts,
 	   an LCG and an MWC.
-	   + Period: ~= 3.1 x 10^57
-	   + Speed: Slow
+	   + Period: ~= 3.1 x 10^57 (~10^38x)
+	   + Speed: Slow (~0.6x)
 	*/
 	class PrngKISS : public Prng
 	{

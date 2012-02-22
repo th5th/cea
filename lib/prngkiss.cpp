@@ -21,7 +21,7 @@ namespace cea
 	const uint32_t S22 = 35;
 	const uint32_t S23 = 4;
 	// MWC Multiplier.
-	const uint32_t M = 3874257210;
+	const uint32_t M = 3874257210U;
 	// Initial state values.
 	const uint64_t V0 = 2685821657736338717;
 	const uint64_t W0 = 1;
