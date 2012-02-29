@@ -1,7 +1,6 @@
 #ifndef __CEA_H
 #define __CEA_H
 
-#include <list>
 #include <vector>
 #include <cstdint>
 
@@ -17,8 +16,8 @@ namespace cea
 
 			unsigned int size() { return genes.size(); };
 			void resize(unsigned int size) { genes.resize(size); };
-			typename std::list<T>::iterator begin() { return genes.begin(); };
-			typename std::list<T>::iterator end() { return genes.end(); };
+			typename std::vector<T>::iterator begin() { return genes.begin(); };
+			typename std::vector<T>::iterator end() { return genes.end(); };
 
 			double get_fitness() { return fitness; };
 			void set_fitness(double f) { fitness = f; };
@@ -28,7 +27,7 @@ namespace cea
 		private:
 			double fitness;
 			bool avail;
-			std::list<T> genes;
+			std::vector<T> genes;
 	};
 
 	template <typename T>

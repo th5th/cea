@@ -6,7 +6,7 @@ namespace cea
 	template <typename T>
 	void OpInitRand<T>::apply_tog(Genome<T>& g)
 	{
-		typename std::list<T>::iterator it;
+		typename std::vector<T>::iterator it;
 		for(it = g.begin(); it != g.end(); ++it)
 			*it = source->rand();
 	}

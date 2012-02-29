@@ -11,7 +11,7 @@ namespace cea
 	{
 		public:
 			// Constructors
-			OpInitRand(RVar<T>* src) { source = src; };
+			OpInitRand(RVar<T> * src) { source = src; };
 
 		private:
 			RVar<T>* source;
@@ -73,11 +73,19 @@ namespace cea
 	{
 		public:
 			// Constructors
+			OpXoKpoint(RVar<uint64_t> * src);
+
+			void set_xop(int xop_i) { xop = xop_i; };
+			void set_par(int par_i) { par = par_i; };
+			void set_fitter_maj(bool m) { fitter_maj = m; };
 
 			void apply_to(Pop<T>& p);
 
 		private:
-			// Various
+			RVar<uint64_t> * source;
+			uint32_t xop;
+			uint32_t par;
+			bool fitter_maj;
 	};
 
 	template <typename T>

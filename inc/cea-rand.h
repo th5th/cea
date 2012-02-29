@@ -132,6 +132,19 @@ namespace cea
 			// PRNG
 			Prng * source;
 	};
+
+	// Debug RVar - not even vaguely random...
+	template <typename T>
+	class DebugRVar : public RVar<T>
+	{
+		public:
+			void set(T start, T st) { x = start; step = st; };
+			T rand() { return  x += step; };
+
+		private:
+			// Fake state stored here.
+			T x, step;
+	};
 }
 
 #endif // __CEA_RAND_H
