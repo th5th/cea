@@ -49,11 +49,11 @@ with open(path+omain, 'w') as f:
 	f.write('\n')
 	f.write('int main(int argc, char* argv[])\n')
 	f.write('{\n')
-	f.write('\tbool return_val = 1;\n')
+	f.write('\tbool return_val = 0;\n')
 	for fn in test_fns:
 		# Trim the unnecessary type from the front.
 		fn = fn[5:]
-		f.write('\treturn_val = {0};\n'.format(fn))
+		f.write('\treturn_val |= {0};\n'.format(fn))
 		f.write('\tstd::cout << "Test {0}: ";\n'.format(fn))
 		f.write('\tif(!return_val)\n'.format(fn))
 		f.write('\t\tstd::cout << "{0}" << std::endl;\n'.format(success_msg))

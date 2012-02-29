@@ -1,8 +1,8 @@
-// All_tests.h generated automatically from test files in /home/th5th/eng/cea/tests/ by /home/th5th/eng/cea/gentests.py.
+// All_tests.h generated automatically from test files in tests/ by ./gentests.py.
 
 #ifndef __ALL_TESTS_H
 #define __ALL_TESTS_H
 
-bool test_rvu();
+bool test_opxokpoint();
 
 #endif

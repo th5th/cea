@@ -1,7 +1,7 @@
-# Cmakelists.txt generated automatically from test files in /home/th5th/eng/cea/tests/ by /home/th5th/eng/cea/gentests.py.
+# Cmakelists.txt generated automatically from test files in tests/ by ./gentests.py.
 
 include_directories(${PROJECT_SOURCE_DIR}/inc)
 link_directories(${PROJECT_SOURCE_DIR}/bin)
 
-add_executable(all_tests all_tests.cpp test_rvu.cpp)
+add_executable(all_tests all_tests.cpp test_opxokpoint.cpp)
 target_link_libraries(all_tests cea)
