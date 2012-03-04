@@ -69,28 +69,6 @@ namespace cea
 	};
 
 	// Crossovers
-	template <typename T>
-	class OpXoKpoint : public OpPop<T>
-	{
-		public:
-			// Constructors
-			OpXoKpoint(RVar<uint64_t> * src);
-
-			void set_xop(int xop_i) { xop = xop_i; };
-			void set_par(int par_i) { par = par_i; };
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Helper functions.
-			void check_points(std::vector<uint64_t>& points, uint64_t s);
-			void gen_points(std::vector<uint64_t>& points, uint64_t s);
-			void do_xo(std::vector<uint64_t> points, std::deque< Genome<T>* >& p, std::deque< Genome<T>* >& c);
-
-			RVar<uint64_t> * source;
-			uint32_t xop;
-			uint32_t par;
-	};
 
 	template <typename T>
 	class OpXoProportionate : public OpPop<T>

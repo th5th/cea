@@ -4,6 +4,7 @@
 #include <cea.h>
 #include <cea-operators.h>
 #include <cea-rand.h>
+#include <src/opxokpoint.hpp>
 
 using namespace cea;
 
@@ -21,12 +22,10 @@ bool test_opxokpoint()
 	OpInitRand<uint64_t> vals(&debug1);
 	vals.apply_to(p);
 
-	PrngMLCGXORShift derp(194571);
+	PrngMLCGXORShift derp;
 	RVarUniform<uint64_t> debug2(&derp, 0, 37);;
 	
-	OpXoKpoint<uint64_t> xo(&debug2);
-	xo.set_xop(3);
-	xo.set_par(2);
+	OpXoKpoint<uint64_t, 2, 3> xo(&debug2);
 	xo.apply_to(p);
 
 	// Check state of p...

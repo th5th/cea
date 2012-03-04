@@ -4,7 +4,6 @@ add_library(
 	cea SHARED
 	opgenome.cpp
 	opinitrand.cpp
-	opxokpoint.cpp
 	popgen.cpp
 	prngmlcgxorshift.cpp
 	prngmwcxorshift.cpp
