@@ -2,6 +2,7 @@
 #define __CEA_OP_H
 
 #include <cea.h>
+#include <deque>
 
 namespace cea
 {
@@ -77,15 +78,18 @@ namespace cea
 
 			void set_xop(int xop_i) { xop = xop_i; };
 			void set_par(int par_i) { par = par_i; };
-			void set_fitter_maj(bool m) { fitter_maj = m; };
 
 			void apply_to(Pop<T>& p);
 
 		private:
+			// Helper functions.
+			void check_points(std::vector<uint64_t>& points, uint64_t s);
+			void gen_points(std::vector<uint64_t>& points, uint64_t s);
+			void do_xo(std::vector<uint64_t> points, std::deque< Genome<T>* >& p, std::deque< Genome<T>* >& c);
+
 			RVar<uint64_t> * source;
 			uint32_t xop;
 			uint32_t par;
-			bool fitter_maj;
 	};
 
 	template <typename T>

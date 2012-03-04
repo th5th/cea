@@ -138,8 +138,13 @@ namespace cea
 	class DebugRVar : public RVar<T>
 	{
 		public:
-			void set(T start, T st) { x = start; step = st; };
-			T rand() { return  x += step; };
+			void set(T x0, T st) { x = x0; step = st; };
+			T rand()
+			{
+			       T rv = x;
+			       x += step;
+			       return rv;
+			}
 
 		private:
 			// Fake state stored here.

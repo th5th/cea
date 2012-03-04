@@ -29,21 +29,100 @@ namespace cea
 		source = src;
 		xop = 4;	// Number of crossover points.
 		par = 2;	// Number of parents (and thus children).
-		fitter_maj= false;
+	}
+
+	template <typename T>
+	void OpXoKpoint<T>::check_points(std::vector<uint64_t>& points, uint64_t s)
+	{
+		// How big points is supposed to be.
+		uint64_t final_size = points.size();
+
+		// Sort and cull repeated els.
+		std::sort(points.begin(), points.end());
+		points.resize(std::unique(points.begin(), points.end()) - points.begin());
+
+		if(points.size() == final_size)
+		{
+			for(uint64_t i = 0; i < points.size(); ++i)
+			{
+				std::cout << points[i] << " ";
+			}
+			std::cout << std::endl;
+			return;
+		}
+
+		// Top up points.
+		while(points.size() < final_size)
+		{
+			points.push_back(source->rand() % s);
+		}
+
+		// Recurse to make sure what we've added is ok.
+		check_points(points, s);
+	}
+
+	template <typename T>
+	void OpXoKpoint<T>::gen_points(std::vector<uint64_t>& points, uint64_t s)
+	{
+		// Generate some crossover points.
+		if(points.size() != 0)
+		{
+			points.clear();
+		}
+		points.resize(xop+2, 0);
+
+		for(uint32_t i = 1; i < xop+1; ++i)
+		{
+			points[i] = source->rand() % s;
+		}
+
+		points[xop+1] = s;
+
+		// Remove duplicates and top up.
+		check_points(points, s);
+
+		return;
+	}
+
+	template <typename T>
+	void OpXoKpoint<T>::do_xo(std::vector<uint64_t> points, std::deque< Genome<T>* >& p, std::deque< Genome<T>* >& c)
+	{
+		// Copy over genes according to vector points.
+		for(uint32_t i = 0; i < par; ++i)
+		{
+			for(uint32_t j = i+1; j < points.size(); j += par)
+			{
+				std::copy(p[0]->begin() + points[j-1], p[0]->begin() + points[j], c[0]->begin() + points[j-1]);
+			}
+			p.pop_front();
+		}
+
+		// Polish c[0]'s members (lol) and copy to c[1].
+		c[0]->set_avail(false); c[0]->set_fitness(-1);
+		for(uint32_t i = 1; i < par; ++i)
+		{
+			*c[1] = *c[0];
+			c.pop_front();
+		}
+
+		// Pop last child pointer - doesn't need to copied on.
+		c.pop_front();
+
+		return;
 	}
 
 	template <typename T>
 	void OpXoKpoint<T>::apply_to(Pop<T>& p)
 	{
-		std::vector< Genome<T>* > pa;
-		std::vector< Genome<T>* > ch;
+		std::vector<uint64_t> xo_points;
+		std::deque< Genome<T>* > pa;
+		std::deque< Genome<T>* > ch;
 
 		typename std::vector< Genome<T> >::iterator g_it = p.begin();
-		int s = g_it->size();
+		uint64_t s = g_it->size();
 		for(; g_it < p.end(); ++g_it)
 		{
-
-			// Find 2 unavailable and 2 available genomes.
+			// Separate unavailable and available genomes.
 			if(g_it->is_avail() == true)
 			{
 				ch.push_back(&*g_it);
@@ -52,64 +131,20 @@ namespace cea
 			{
 				pa.push_back(&*g_it);
 			}
+		}
 
-			// If we have enough in pa and ch, do crossover.
-			if(ch.size() >= par && pa.size() >= par)
-			{
-				// Generate some crossover points.
-				std::vector<uint64_t> xops(xop+2, 0);
-
-				for(uint32_t i = 1; i < xop+1; ++i)
-				{
-					xops[i] = source->rand() % s;
-				}
-
-				xops[xop+1] = s;
-				std::sort(xops.begin(), xops.end());
-
-				if(fitter_maj == true)
-				{
-					// Re-order parents so fittest contributes most to children.
-					std::vector<uint64_t> contribs;
-					contribs.reserve(par);
-					for(uint32_t i = 0; i < par; ++i)
-					{
-						uint64_t c = 0;
-						for(uint32_t j = i+1; j < xops.size(); j += par)
-						{
-							c += (xops[j] - xops[j-1]);
-						}
-						contribs[i] = c;
-					}
-					// Re-order pa according to contribs.
-					// ...
-				}
-
-				// Copy pa into ch[0] using crossover points from above.
-				for(uint32_t i = 0; i < par; ++i)
-				{
-					for(uint32_t j = i+1; j < xops.size(); j += par)
-					{
-						std::copy(pa[i]->begin() + xops[j-1], pa[i]->begin() + xops[j], ch[0]->begin() + xops[j-1]);
-					}
-				}
-
-				// Polish ch[0]'s members (lol) and copy to ch[i].
-				ch[0]->set_avail(false); ch[0]->set_fitness(-1);
-				for(uint32_t i = 1; i < par; ++i)
-				{
-					*ch[i] = *ch[0];
-				}
-
-				// Empty parent and child buffers for next iteration.
-				pa.clear(); ch.clear();
-			}
+		while(ch.size() >= par && pa.size() >= par)
+		{
+			// Generate unique crossover points and go.
+			gen_points(xo_points, s);
+			do_xo(xo_points, pa, ch);
 		}
 
 		// Check for leftovers!
 		if(pa.size() != 0 || ch.size() != 0)
 		{
 			// Do something.
+			std::cout << "Population size not compatible with this operator's settings!" << std::endl;
 		}
 	}
 
