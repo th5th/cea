@@ -1,6 +1,6 @@
 // Fully templated edition.
-#ifndef CEA_XOKPOINT_H
-#define CEA_XOKPOINT_H
+#ifndef CEA_XOKPOINT_HPP
+#define CEA_XOKPOINT_HPP
 
 template <typename T, int N_PAR, int N_XOP>
 class OpXoKpoint : public OpPop<T>
@@ -20,7 +20,7 @@ class OpXoKpoint : public OpPop<T>
 
             // Separate unavailable and available genomes.
             typename std::vector< Genome<T> >::iterator g_it = p.begin();
-            uint64_t s = g_it->size();
+            s = g_it->size();
             for(; g_it < p.end(); ++g_it)
             {
                 if(g_it->is_avail() == true)
@@ -36,7 +36,7 @@ class OpXoKpoint : public OpPop<T>
             // While sufficient genomes then conduct crossover.
             while(ch.size() >= N_PAR && pa.size() >= N_PAR)
             {
-                gen_points(xo_points, s);
+                gen_points(xo_points);
                 do_xo(xo_points, pa, ch);
             }
 
@@ -49,8 +49,12 @@ class OpXoKpoint : public OpPop<T>
         }
 
     private:
+        // Genome length shortcut.
+        uint64_t s;
+        RVar<uint64_t> * source;
+
         // Helper functions.
-        void check_points(std::vector<uint64_t>& points, uint64_t s)
+        void check_points(std::vector<uint64_t>& points)
         {
             // Sort and cull repeated els.
             std::sort(points.begin(), points.end());
@@ -58,11 +62,6 @@ class OpXoKpoint : public OpPop<T>
 
             if(points.size() == N_XOP+2)
             {
-                for(uint64_t i = 0; i < points.size(); ++i)
-                {
-                    std::cout << points[i] << " ";
-                }
-                std::cout << std::endl;
                 return;
             }
 
@@ -73,10 +72,10 @@ class OpXoKpoint : public OpPop<T>
             }
 
             // Recurse to make sure what we've added is ok.
-            check_points(points, s);
+            check_points(points);
         }
 
-        void gen_points(std::vector<uint64_t>& points, uint64_t s)
+        void gen_points(std::vector<uint64_t>& points)
         {
             // Generate some crossover points.
             if(points.size() != 0)
@@ -93,7 +92,7 @@ class OpXoKpoint : public OpPop<T>
             points[N_XOP+1] = s;
 
             // Remove duplicates and top up.
-            check_points(points, s);
+            check_points(points);
 
             return;
         }
@@ -112,7 +111,7 @@ class OpXoKpoint : public OpPop<T>
             }
 
             // Polish c[0]'s members (lol) and copy to c[1].
-            c[0]->set_avail(false); c[0]->set_fitness(-1);
+            c[0]->set_avail(false); c[0]->set_evald(false); c[0]->set_fitness(0.0);
             for(uint32_t i = 1; i < N_PAR; ++i)
             {
                 *c[1] = *c[0];
@@ -124,8 +123,6 @@ class OpXoKpoint : public OpPop<T>
 
             return;
         }
-
-        RVar<uint64_t> * source;
 };
 
-#endif // CEA_OPXOKPOINT_H
+#endif // CEA_OPXOKPOINT_HPP
