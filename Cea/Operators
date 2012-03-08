@@ -1,24 +1,29 @@
-#ifndef __CEA_OP_H
-#define __CEA_OP_H
+// vim: set filetype=cpp:
+#ifndef CEA_OPS_H
+#define CEA_OPS_H
 
-#include <cea.h>
+// Base classes and stdlib things.
+#include "Core"
+
+// Additional stdlib stuff needed here.
 #include <deque>
+#include <algorithm>
 
 namespace cea
 {
 	// Initialisers
-	template <typename T>
-	class OpInitRand : public OpGenome<T>
-	{
-		public:
-			// Constructors
-			OpInitRand(RVar<T> * src) { source = src; };
+    #include "src/ops/initrand.hpp"
 
-		private:
-			RVar<T>* source;
-			void apply_tog(Genome<T>& g);
-	};
+// this is nonsense at the moment........
+// .......
+// ....
+// ..
+//
+//
+//
+// ..
 
+/*
 	template <typename T>
 	class OpInitDeterm : public OpPop<T>
 	{
@@ -67,9 +72,11 @@ namespace cea
 		private:
 			// Various
 	};
-
+*/
 	// Crossovers
+    #include "src/ops/xokpoint.hpp"
 
+/*
 	template <typename T>
 	class OpXoProportionate : public OpPop<T>
 	{
@@ -129,6 +136,7 @@ namespace cea
 		private:
 			// Various
 	};
+*/
 }
 
 #endif // __CEA_OP_H

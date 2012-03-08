@@ -1,10 +1,13 @@
-#ifndef __CEA_RAND_H
-#define __CEA_RAND_H
+// vim: set filetype=cpp:
+#ifndef CEA_RANDOM_H
+#define CEA_RANDOM_H
 
-#include <cstdint>
-#include <cstdlib>
+// Base classes and stdlib things.
+#include "Core"
 
-#include <cea.h>
+// Additional stdlib stuff.
+#include <limits>
+#include <type_traits>
 
 namespace cea
 {
@@ -19,34 +22,14 @@ namespace cea
 	   + Period: ~=1.8 x 10^19 (1x)
 	   + Speed: Fast (1x)
 	*/
-	class PrngMLCGXORShift : public Prng
-	{
-		public:
-			PrngMLCGXORShift (uint64_t seed = 1);
-
-			uint64_t rand();
-			void srand(uint64_t seed);
-		private:
-			// State
-			uint64_t x;
-	};
+    #include "src/prng/mlcgxors.hpp"
 
 	/*
 	   Generator combining an XOR shift with an MWC generator.
 	   + Period: ~= 8.5 x 10^37 (~10^19x)
 	   + Speed: Medium (~0.8x)
 	*/
-	class PrngMWCXORShift : public Prng
-	{
-		public:
-			PrngMWCXORShift(uint64_t seed = 1);
-
-			void srand(uint64_t seed);
-			uint64_t rand();
-
-		private:
-			uint64_t x, y;
-	};
+    #include "src/prng/mwcxors.hpp"
 
 	/*
 	   KISS generator formed from 2 XOR shifts,
@@ -54,40 +37,11 @@ namespace cea
 	   + Period: ~= 3.1 x 10^57 (~10^38x)
 	   + Speed: Slow (~0.6x)
 	*/
-	class PrngKISS : public Prng
-	{
-		public:
-			PrngKISS(uint64_t seed = 1);
-
-			uint64_t rand();
-			void srand(uint64_t seed);
-
-		private:
-			// State
-			uint64_t u, v, w;
-	};
+    #include "src/prng/kiss.hpp"
 
 	// Cea RVars
-	template <typename T>
-	class RVarUniform : public RVar<T>
-	{
-		public:
-			// Constructors
-			RVarUniform(Prng * src, T a = 0, T b = 0);
-
-			void set_interval(T a, T b);
-			void set_source(Prng * src);
-			T rand();
-
-		private:
-			// Bounds
-			T lower;
-			T upper;
-
-			// PRNG
-			Prng * source;
-	};
-
+    #include "src/rvar/uniform.hpp"
+/* junk
 	class RVarNormal : public RVar<double>
 	{
 		public:
@@ -132,7 +86,7 @@ namespace cea
 			// PRNG
 			Prng * source;
 	};
-
+*/
 	// Debug RVar - not even vaguely random...
 	template <typename T>
 	class DebugRVar : public RVar<T>
@@ -152,4 +106,4 @@ namespace cea
 	};
 }
 
-#endif // __CEA_RAND_H
+#endif // CEA_RANDOM_H

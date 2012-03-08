@@ -6,8 +6,8 @@ gen = argv[0]
 path = argv[1]
 
 project = 'cea'
-omain = 'all_tests.cpp'
-oheader = omain.replace('.cpp', '.h')
+omain = 'all.cpp'
+oheader = omain.replace('.cpp', '.hpp')
 oexec = omain.replace('.cpp', '')
 ocmakelists = 'CMakeLists.txt'
 
@@ -29,16 +29,15 @@ test_fns = map(get_fn, files)
 
 # Write to oheader
 with open(path+oheader, 'w') as f:
-	guard = '__{0}'.format(oheader.upper().replace('.','_'))
+	guard = '{0}'.format(oheader.upper().replace('.','_'))
 	f.write('// {0} generated automatically from test files in {1} by {2}.\n'.format(oheader.capitalize(), path, gen))
-	f.write('\n')
 	f.write('#ifndef {0}\n'.format(guard))
 	f.write('#define {0}\n'.format(guard))
 	f.write('\n')
 	for fn in test_fns:
 		f.write(fn + ';\n')
 	f.write('\n')
-	f.write('#endif\n')
+	f.write('#endif // {0}\n'.format(guard))
 
 # Write to omain
 with open(path+omain, 'w') as f:
@@ -66,14 +65,12 @@ with open(path+omain, 'w') as f:
 with open(path+ocmakelists, 'w') as f:
 	f.write('# {0} generated automatically from test files in {1} by {2}.\n'.format(ocmakelists.capitalize(), path, gen))
 	f.write('\n')
-	f.write('include_directories(${PROJECT_SOURCE_DIR}/inc)\n')
-	f.write('link_directories(${PROJECT_SOURCE_DIR}/bin)\n')
+	f.write('include_directories(${PROJECT_SOURCE_DIR})\n')
 	f.write('\n')
 	add_exec_cmd = 'add_executable({0} {1}'.format(oexec, omain)
 	for fle in files:
 		add_exec_cmd += (' ' + fle)
 	add_exec_cmd += ')\n'
 	f.write(add_exec_cmd)
-	f.write('target_link_libraries({0} {1})\n'.format(oexec, project))
 
 exit(0)

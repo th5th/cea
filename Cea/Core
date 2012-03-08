@@ -1,0 +1,31 @@
+// vim: set filetype=cpp:
+#ifndef CEA_CORE_H
+#define CEA_CORE_H
+
+#ifdef CEA_DEBUG
+#include <iostream>
+#endif // CEA_DEBUG
+#include <cstdint>
+#include <vector>
+
+namespace cea
+{
+    // Provides debug output.
+    #include "src//util/macros.hpp"
+    
+    // Basic data structures.
+    #include "src/core/genome.hpp"
+    #include "src/core/pop.hpp"
+    
+    // Operator abstract base classes.
+    #include "src/core/oppop.hpp"
+    #include "src/core/opgenome.hpp"
+
+    // Randomness abstract base classes.
+    #include "src/core/prng.hpp"
+    #include "src/core/rvar.hpp"
+
+	// Core algorithm class.
+    #include "src/core/alg.hpp"
+}
+#endif // CEA_CORE_H
