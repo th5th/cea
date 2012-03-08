@@ -1,4 +1,4 @@
-// All.cpp generated automatically from test files in tests/ by ./gentests.py.
+// All.cpp generated automatically from test files in /home/th5th/eng/cea/tests/ by /home/th5th/eng/cea/gentests.py.
 
 #include <iostream>
 #include "all.hpp"

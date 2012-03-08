@@ -1,4 +1,4 @@
-# Cmakelists.txt generated automatically from test files in tests/ by ./gentests.py.
+# Cmakelists.txt generated automatically from test files in /home/th5th/eng/cea/tests/ by /home/th5th/eng/cea/gentests.py.
 
 include_directories(${PROJECT_SOURCE_DIR})
 

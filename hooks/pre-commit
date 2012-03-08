@@ -34,7 +34,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run test binary
-$repo_root/bin/all_tests
+$repo_root/tests/all
 if [ $? -ne 0 ]; then
 	echo "Test suite failed."
 	fail

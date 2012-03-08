@@ -12,3 +12,7 @@ Makefile
 
 # Ignore test binary
 tests/all
+
+# Vim backups
+# First 16 backups are made decrementing file extensions, starting at .swp.
+*.sw[a-p]
