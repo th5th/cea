@@ -1,6 +1,6 @@
 // vim: set filetype=cpp:
-#ifndef CEA_RANDOM_H
-#define CEA_RANDOM_H
+#ifndef CEA_RANDOM_HPP
+#define CEA_RANDOM_HPP
 
 // Base classes and stdlib things.
 #include "Core"
@@ -87,23 +87,29 @@ namespace cea
 			Prng * source;
 	};
 */
-	// Debug RVar - not even vaguely random...
+#ifdef CEA_DEBUG
+	// Debug RVar - testing only.
 	template <typename T>
 	class DebugRVar : public RVar<T>
 	{
 		public:
-			void set(T x0, T st) { x = x0; step = st; };
+            DebugRVar(std::vector<T> op) : output(op)
+            {
+                i = 0;
+            }
+
 			T rand()
 			{
-			       T rv = x;
-			       x += step;
-			       return rv;
+                // Keeps i in range, and increments.
+                return output[ (i >= output.size() ? i = 0 : i)++ ];
 			}
 
 		private:
 			// Fake state stored here.
-			T x, step;
+            std::vector<T> output;
+            uint32_t i;
 	};
+#endif // CEA_DEBUG
 }
 
-#endif // CEA_RANDOM_H
+#endif // CEA_RANDOM_HPP

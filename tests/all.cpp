@@ -1,17 +1,32 @@
-// All.cpp generated automatically from test files in /home/th5th/eng/cea/tests/ by /home/th5th/eng/cea/gentests.py.
+// All.cpp generated automatically from test files in tests/ by gentests.py.
 
 #include <iostream>
 #include "all.hpp"
 
 int main(int argc, char* argv[])
 {
-	bool return_val = 0;
-	return_val |= test_opxokpoint();
-	std::cout << "Test test_opxokpoint(): ";
-	if(!return_val)
+	bool test_failed = false;
+	bool overall_failed = false;
+
+	test_failed = test_initrand();
+
+	std::cout << "Test test_initrand(): ";
+	if(!test_failed)
 		std::cout << "Test succeeded." << std::endl;
 	else
 		std::cout << "Test failed." << std::endl;
 
-	return return_val;
+	overall_failed |= test_failed;
+
+	test_failed = test_xokpoint();
+
+	std::cout << "Test test_xokpoint(): ";
+	if(!test_failed)
+		std::cout << "Test succeeded." << std::endl;
+	else
+		std::cout << "Test failed." << std::endl;
+
+	overall_failed |= test_failed;
+
+	return overall_failed;
 }
