@@ -1,9 +1,12 @@
 #!/usr/bin/python
 from sys import argv, exc_info, exit
 from os import listdir
+from os.path import abspath, basename
 
 _,_,gen = argv[0].rpartition('/')
-path = argv[1]
+path = abspath(argv[1])
+pretty_path = basename(path) + '/'
+path = path + '/'
 
 project = 'cea'
 omain = 'all.cpp'
@@ -30,7 +33,7 @@ test_fns = map(get_fn, files)
 # Write to oheader
 with open(path+oheader, 'w') as f:
     guard = '{0}'.format(oheader.upper().replace('.','_'))
-    f.write('// {0} generated automatically from test files in {1} by {2}.\n'.format(oheader.capitalize(), path, gen))
+    f.write('// {0} generated automatically from test files in {1} by {2}.\n'.format(oheader.capitalize(), pretty_path, gen))
     f.write('#ifndef {0}\n'.format(guard))
     f.write('#define {0}\n'.format(guard))
     f.write('\n')
@@ -42,7 +45,7 @@ with open(path+oheader, 'w') as f:
 # ADD NEW BOOL TO MAKE OUTPUT READ RIGHT
 # Write to omain
 with open(path+omain, 'w') as f:
-    f.write('// {0} generated automatically from test files in {1} by {2}.\n'.format(omain.capitalize(), path, gen))
+    f.write('// {0} generated automatically from test files in {1} by {2}.\n'.format(omain.capitalize(), pretty_path, gen))
     f.write('\n')
     f.write('#include <iostream>\n')
     f.write('#include "{0}"\n'.format(oheader))
@@ -68,7 +71,7 @@ with open(path+omain, 'w') as f:
     
 # Finally, remetamake (!) cmakelists file.
 with open(path+ocmakelists, 'w') as f:
-    f.write('# {0} generated automatically from test files in {1} by {2}.\n'.format(ocmakelists.capitalize(), path, gen))
+    f.write('# {0} generated automatically from test files in {1} by {2}.\n'.format(ocmakelists.capitalize(), pretty_path, gen))
     f.write('\n')
     f.write('include_directories(${PROJECT_SOURCE_DIR})\n')
     f.write('\n')
