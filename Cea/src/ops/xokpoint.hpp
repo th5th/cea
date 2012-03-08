@@ -15,7 +15,8 @@ class OpXoKpoint : public OpPop<T>
         void apply_to(Pop<T>& p)
         {
             std::vector<uint64_t> xo_points;
-            std::deque< Genome<T>* > pa;
+            // Parents are guaranteed unchanged later.
+            std::deque< Genome<T> const* > pa;
             std::deque< Genome<T>* > ch;
 
             // Separate unavailable and available genomes.
@@ -97,7 +98,7 @@ class OpXoKpoint : public OpPop<T>
             return;
         }
 
-        void do_xo(std::vector<uint64_t> points, std::deque< Genome<T>* >& p, std::deque< Genome<T>* >& c)
+        void do_xo(std::vector<uint64_t> points, std::deque< Genome<T> const* >& p, std::deque< Genome<T>* >& c)
         {
             // Copy over genes according to vector points.
             for(uint32_t i = 0; i < N_PAR; ++i)

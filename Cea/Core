@@ -1,6 +1,6 @@
 // vim: set filetype=cpp:
-#ifndef CEA_CORE_H
-#define CEA_CORE_H
+#ifndef CEA_CORE_HPP
+#define CEA_CORE_HPP
 
 #ifdef CEA_DEBUG
 #include <iostream>
@@ -11,7 +11,7 @@
 namespace cea
 {
     // Provides debug output.
-    #include "src//util/macros.hpp"
+    #include "src/util/macros.hpp"
     
     // Basic data structures.
     #include "src/core/genome.hpp"
@@ -28,4 +28,4 @@ namespace cea
 	// Core algorithm class.
     #include "src/core/alg.hpp"
 }
-#endif // CEA_CORE_H
+#endif // CEA_CORE_HPP
