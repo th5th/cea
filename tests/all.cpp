@@ -28,5 +28,15 @@ int main(int argc, char* argv[])
 
 	overall_failed |= test_failed;
 
+	test_failed = test_rvarnormal();
+
+	std::cout << "Test test_rvarnormal(): ";
+	if(!test_failed)
+		std::cout << "Test succeeded." << std::endl;
+	else
+		std::cout << "Test failed." << std::endl;
+
+	overall_failed |= test_failed;
+
 	return overall_failed;
 }

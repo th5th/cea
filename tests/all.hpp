@@ -4,5 +4,6 @@
 
 bool test_initrand();
 bool test_xokpoint();
+bool test_rvarnormal();
 
 #endif // ALL_HPP

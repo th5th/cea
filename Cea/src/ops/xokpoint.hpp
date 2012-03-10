@@ -8,9 +8,7 @@ class OpXoKpoint : public OpPop<T>
     public:
         // Constructors
         OpXoKpoint(RVar<uint64_t> * src)
-        {
-            source = src;
-        }
+            : source(src) {}
 
         void apply_to(Pop<T>& p)
         {

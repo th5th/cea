@@ -21,7 +21,7 @@ namespace xorshift
 class PrngMLCGXORShift : public Prng
 {
     public:
-        PrngMLCGXORShift (uint64_t seed = 1)
+        PrngMLCGXORShift(uint64_t seed = 1)
         {
             srand(seed);
         }
