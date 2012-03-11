@@ -26,10 +26,10 @@ class OpEvalFitness: public OpGenome<T>
 
         void apply_tog(Genome<T>& g)
         {
-            if(!g.is_evald())
+            if(!g.evald)
             {
-                g.set_fitness(ff(g));
-                g.set_evald(true);
+                g.fitness = ff(g);
+                g.evald = true;
             }
         }
 };

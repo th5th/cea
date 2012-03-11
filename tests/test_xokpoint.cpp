@@ -12,9 +12,9 @@ bool test_xokpoint()
     // Mock initalisation.
     for(uint64_t i = 0; i < p.size(); ++i)
     {
-        p[i].set_avail(false);
-        p[i].set_evald(false);
-        p[i].set_fitness(0.0);
+        p[i].avail = false;
+        p[i].evald = false;
+        p[i].fitness = 0.0;
         for(uint64_t j = 0; j < p[i].size(); ++j)
         {
             p[i][j] = 24*i + j;
@@ -22,8 +22,8 @@ bool test_xokpoint()
     }
 
     // Mock selection.
-	p[2].set_avail(true);
-	p[3].set_avail(true);
+	p[2].avail = true;
+	p[3].avail = true;
 
     uint64_t pts[] = {0,0,11,6,11,4,0,19};
     // In generating the crossover points, gen_
@@ -38,7 +38,7 @@ bool test_xokpoint()
     for(uint32_t i = 0; i < p.size(); ++i)
     {
         // All genomes should be unavailable.
-        if(p[i].is_avail() != false)
+        if(p[i].avail != false)
         {
             DEBUG_OUT("Genome available.");
             test_failed = true;
@@ -48,7 +48,7 @@ bool test_xokpoint()
         {
             // Parent
             // Parents should have their fitness unchanged.
-            if(p[i].get_fitness() != 0.0)
+            if(p[i].fitness != 0.0)
             {
                 DEBUG_OUT("Parent fitness changed.");
                 test_failed = true;
@@ -58,7 +58,7 @@ bool test_xokpoint()
         {
             // Child
             // Children should have evald set false.
-            if(p[i].is_evald() != false)
+            if(p[i].evald != false)
             {
                 DEBUG_OUT("Child marked as evald.");
                 test_failed = true;

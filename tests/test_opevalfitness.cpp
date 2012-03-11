@@ -34,7 +34,7 @@ bool test_opevalfitness()
 
     for(uint32_t i = 0; i < p.size(); ++i)
     {
-        if(p[i].get_fitness() != f_vals[i])
+        if(p[i].fitness != f_vals[i] || p[i].avail != true || p[i].evald != true)
         {
            test_failed = true;
         }

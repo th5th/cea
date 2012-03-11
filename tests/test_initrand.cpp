@@ -26,21 +26,21 @@ bool test_initrand()
     for(uint64_t i = 0; i < p.size(); ++i)
     {
         // avail should be false.
-        if(p[i].is_avail() != false)
+        if(p[i].avail != false)
         {
             DEBUG_OUT("Avail is set.");
             test_failed = true;
         }
 
         // evald should be false.
-        if(p[i].is_evald() != false)
+        if(p[i].evald != false)
         {
             DEBUG_OUT("Evald is set.");
             test_failed = true;
         }
 
         // fitness should be 0.0.
-        if(p[i].get_fitness() != 0.0)
+        if(p[i].fitness != 0.0)
         {
             DEBUG_OUT("Fitness not set to 0.0.");
             test_failed = true;

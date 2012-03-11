@@ -17,12 +17,13 @@ class OpInitRand : public OpGenome<T>
 
         void apply_tog(Genome<T>& g)
         {
-            g.set_fitness(0.0);
-            g.set_avail(false);
-            g.set_evald(false);
-            typename std::vector<T>::iterator it;
-            for(it = g.begin(); it != g.end(); ++it)
-                *it = source->rand();
+            g.fitness = 0.0;
+            g.avail = false;
+            g.evald = false;
+            for(uint64_t i = 0; i < g.size(); ++i)
+            {
+                g[i] = source->rand();
+            }
         }
 };
 

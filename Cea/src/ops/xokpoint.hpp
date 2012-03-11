@@ -18,17 +18,16 @@ class OpXoKpoint : public OpPop<T>
             std::deque< Genome<T>* > ch;
 
             // Separate unavailable and available genomes.
-            typename std::vector< Genome<T> >::iterator g_it = p.begin();
-            s = g_it->size();
-            for(; g_it < p.end(); ++g_it)
+            s = p[0].size();
+            for(uint64_t i = 0; i < p.size(); ++i)
             {
-                if(g_it->is_avail() == true)
+                if(p[i].avail == true)
                 {
-                    ch.push_back(&*g_it);
+                    ch.push_back(&p[i]);
                 }
                 else
                 {
-                    pa.push_back(&*g_it);
+                    pa.push_back(&p[i]);
                 }
             }
 
@@ -83,7 +82,7 @@ class OpXoKpoint : public OpPop<T>
             }
             points.resize(N_XOP+2, 0);
 
-            for(uint32_t i = 1; i < N_XOP+1; ++i)
+            for(uint64_t i = 1; i < N_XOP+1; ++i)
             {
                 points[i] = source->rand() % s;
             }
@@ -99,9 +98,9 @@ class OpXoKpoint : public OpPop<T>
         void do_xo(std::vector<uint64_t> points, std::deque< Genome<T> const* >& p, std::deque< Genome<T>* >& c)
         {
             // Copy over genes according to vector points.
-            for(uint32_t i = 0; i < N_PAR; ++i)
+            for(uint64_t i = 0; i < N_PAR; ++i)
             {
-                for(uint32_t j = i+1; j < points.size(); j += N_PAR)
+                for(uint64_t j = i+1; j < points.size(); j += N_PAR)
                 {
                     std::copy(p[0]->begin() + points[j-1], p[0]->begin() + points[j], c[0]->begin() + points[j-1]);
                 }
@@ -110,8 +109,8 @@ class OpXoKpoint : public OpPop<T>
             }
 
             // Polish c[0]'s members (lol) and copy to c[1].
-            c[0]->set_avail(false); c[0]->set_evald(false); c[0]->set_fitness(0.0);
-            for(uint32_t i = 1; i < N_PAR; ++i)
+            c[0]->avail= false; c[0]->evald = false; c[0]->fitness = 0.0;
+            for(uint64_t i = 1; i < N_PAR; ++i)
             {
                 *c[1] = *c[0];
                 c.pop_front();
