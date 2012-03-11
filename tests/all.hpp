@@ -3,6 +3,7 @@
 #define ALL_HPP
 
 bool test_initrand();
+bool test_opevalfitness();
 bool test_xokpoint();
 bool test_rvarnormal();
 

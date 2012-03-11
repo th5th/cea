@@ -137,7 +137,7 @@ bool test_rvarnormal()
     for(unsigned int i = 0; i < 100000; ++i)
         h.add(r.rand());
 
-    h.print();
+    //h.print();
 
     bool test_failed = false;
     return test_failed;

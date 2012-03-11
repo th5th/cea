@@ -1,6 +1,6 @@
 // vim: set filetype=cpp:
-#ifndef CEA_OPS_H
-#define CEA_OPS_H
+#ifndef CEA_OPERATORS_HPP
+#define CEA_OPERATORS_HPP
 
 // Base classes and stdlib things.
 #include "Core"
@@ -14,129 +14,28 @@ namespace cea
 	// Initialisers
     #include "src/ops/initrand.hpp"
 
-// this is nonsense at the moment........
-// .......
-// ....
-// ..
-//
-//
-//
-// ..
-
 /*
-	template <typename T>
 	class OpInitDeterm : public OpPop<T>
-	{
-		public:
-			// Constructors
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Various
-	};
 
 	// Selectors
-	template <typename T>
 	class OpSelTournament : public OpPop<T>
-	{
-		public:
-			// Constructors
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Various
-	};
-
-	template <typename T>
 	class OpSelRoulette : public OpPop<T>
-	{
-		public:
-			// Constructors
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Various
-	};
-
-	template <typename T>
 	class OpSelTruncation : public OpPop<T>
-	{
-		public:
-			// Constructors
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Various
-	};
 */
 	// Crossovers
     #include "src/ops/xokpoint.hpp"
 
 /*
-	template <typename T>
 	class OpXoProportionate : public OpPop<T>
-	{
-		public:
-			// Constructors
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Various
-	};
-
+    
 	// Mutators
-	template <typename T>
 	class OpMutOffset : public OpGenome<T>
-	{
-		public:
-			// Constructors
-
-		private:
-			// Various
-			void apply_tog(Pop<T>& p);
-	};
-
-	template <typename T>
 	class OpMutGeneShuffle : public OpGenome<T>
-	{
-		public:
-			// Constructors
-
-		private:
-			// Various
-			void apply_tog(Pop<T>& p);
-	};
 
 	// Terminators
-	template <typename T>
 	class OpTermFixedTime : public OpPop<T>
-	{
-		public:
-			// Constructors
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Various
-	};
-
-	template <typename T>
 	class OpTermFitnessThresh : public OpPop<T>
-	{
-		public:
-			// Constructors
-
-			void apply_to(Pop<T>& p);
-
-		private:
-			// Various
-	};
 */
 }
 
-#endif // __CEA_OP_H
+#endif // CEA_OPERATORS_HPP
