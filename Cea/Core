@@ -18,10 +18,10 @@ namespace cea
     #include "src/core/genome.hpp"
     #include "src/core/pop.hpp"
     
-    // Operator abstract base classes.
-    #include "src/core/oppop.hpp"
-    #include "src/core/opgenome.hpp"
-    #include "src/core/opevalfitness.hpp"
+    // Core operator functionality.
+    #include "src/ops/oppop.hpp"
+    #include "src/ops/opgenome.hpp"
+    #include "src/ops/evalfitness.hpp"
 
     // Randomness abstract base classes.
     #include "src/core/prng.hpp"

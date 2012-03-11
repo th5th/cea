@@ -1,7 +1,7 @@
-// All.cpp generated automatically from test files in tests/ by gentests.py.
+// All_tests.cpp generated automatically from test files in tests/ by gentests.py.
 
 #include <iostream>
-#include "all.hpp"
+#include "all_tests.hpp"
 
 int main(int argc, char* argv[])
 {

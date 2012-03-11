@@ -9,7 +9,7 @@ pretty_path = basename(path) + '/'
 path = path + '/'
 
 project = 'cea'
-omain = 'all.cpp'
+omain = 'all_tests.cpp'
 oheader = omain.replace('.cpp', '.hpp')
 oexec = omain.replace('.cpp', '')
 ocmakelists = 'CMakeLists.txt'

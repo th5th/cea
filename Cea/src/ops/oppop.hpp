@@ -1,6 +1,6 @@
-// Operator classes.
-#ifndef CEA_OPPOP_H
-#define CEA_OPPOP_H
+// Base operator class.
+#ifndef CEA_OPPOP_HPP
+#define CEA_OPPOP_HPP
 
 template <typename T>
 class OpPop
@@ -9,4 +9,4 @@ class OpPop
         virtual void apply_to(Pop<T>& p) = 0;
 };
 
-#endif
+#endif // CEA_OPPOP_HPP
