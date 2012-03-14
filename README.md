@@ -8,5 +8,5 @@ The final aim is a library which can be used to run "quick and dirty" EAs using 
 
 Recent changes:
 
-+ First operator complete - implements K-point, n-parent crossover.
-+ Redesign to a complete template header library.
++ Several operators now in place - one of each kind with only OpTerm remaining to be represented.
++ Added evaluation operator which allows function pointers or `std::function` objects to be used as fitness functions.

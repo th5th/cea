@@ -14,8 +14,8 @@ class Genome
         Genome() :
             fitness(0.0), avail(true), evald(false) {}
 
-        Genome(typename std::vector<T>::size_type g_s) :
-            fitness(0.0), avail(true), evald(false), genes(g_s, 0) {}
+        Genome(typename std::vector<T>::size_type g_s)
+            : fitness(0.0), avail(true), evald(false), genes(g_s, 0) {}
 
         // Forward some of the underlying vector<T> functionality.
         typename std::vector<T>::size_type size() const { return genes.size(); }
@@ -29,8 +29,16 @@ class Genome
         T& operator[](int i) { return genes[i]; }
         T const& operator[](int i) const { return genes[i]; }
 
-        // Comparison between genomes - allows sorting of Pop objects.
+        // Comparison and efficient swapping.
         bool operator<(Genome<T> const& g2) const { return fitness < g2.fitness; }
+        friend void swap(Genome<T>&g1, Genome<T>& g2)
+        {
+            std::swap(g1.avail, g2.avail);
+            std::swap(g1.evald, g2.evald);
+            std::swap(g1.fitness, g2.fitness);
+            g1.genes.swap(g2.genes);
+            return;
+        }
 
     private:
         std::vector<T> genes;
