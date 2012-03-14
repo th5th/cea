@@ -134,7 +134,7 @@ bool test_rvarnormal()
     Histogram<int32_t> h(-15, 1, 15);
     //h.config_format(12, 100, '*', true);
 
-    for(unsigned int i = 0; i < 100000; ++i)
+    for(unsigned int i = 0; i < 10; ++i)
         h.add(r.rand());
 
     //h.print();
