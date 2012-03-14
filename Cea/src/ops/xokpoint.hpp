@@ -1,4 +1,6 @@
 // Fully templated edition.
+// TODO Allow variable number of children independent of parents.
+// TODO Possibly remove integer template parameters. Value?
 #ifndef CEA_XOKPOINT_HPP
 #define CEA_XOKPOINT_HPP
 
@@ -58,19 +60,19 @@ class OpXoKpoint : public OpPop<T>
             std::sort(points.begin(), points.end());
             points.resize(std::unique(points.begin(), points.end()) - points.begin());
 
-            if(points.size() == N_XOP+2)
+            while(points.size() != N_XOP+2)
             {
-                return;
+                // Top up points.
+                while(points.size() < N_XOP+2)
+                {
+                    points.push_back(source->rand() % s);
+                }
+                // Sort and cull repeated els.
+                std::sort(points.begin(), points.end());
+                points.resize(std::unique(points.begin(), points.end()) - points.begin());
             }
 
-            // Top up points.
-            while(points.size() < N_XOP+2)
-            {
-                points.push_back(source->rand() % s);
-            }
-
-            // Recurse to make sure what we've added is ok.
-            check_points(points);
+            return;
         }
 
         void gen_points(std::vector<uint64_t>& points)
