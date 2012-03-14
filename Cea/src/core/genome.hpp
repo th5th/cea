@@ -29,6 +29,9 @@ class Genome
         T& operator[](int i) { return genes[i]; }
         T const& operator[](int i) const { return genes[i]; }
 
+        // Comparison between genomes - allows sorting of Pop objects.
+        bool operator<(Genome<T> const& g2) const { return fitness < g2.fitness; }
+
     private:
         std::vector<T> genes;
 };
