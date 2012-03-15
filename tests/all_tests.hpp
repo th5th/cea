@@ -2,8 +2,9 @@
 #ifndef ALL_TESTS_HPP
 #define ALL_TESTS_HPP
 
+bool test_seltruncation();
+bool test_evalfitness();
 bool test_initrand();
-bool test_opevalfitness();
 bool test_xokpoint();
 bool test_rvarnormal();
 

@@ -8,9 +8,9 @@ int main(int argc, char* argv[])
 	bool test_failed = false;
 	bool overall_failed = false;
 
-	test_failed = test_initrand();
+	test_failed = test_seltruncation();
 
-	std::cout << "Test test_initrand(): ";
+	std::cout << "Test test_seltruncation(): ";
 	if(!test_failed)
 		std::cout << "Test succeeded." << std::endl;
 	else
@@ -18,9 +18,19 @@ int main(int argc, char* argv[])
 
 	overall_failed |= test_failed;
 
-	test_failed = test_opevalfitness();
+	test_failed = test_evalfitness();
 
-	std::cout << "Test test_opevalfitness(): ";
+	std::cout << "Test test_evalfitness(): ";
+	if(!test_failed)
+		std::cout << "Test succeeded." << std::endl;
+	else
+		std::cout << "Test failed." << std::endl;
+
+	overall_failed |= test_failed;
+
+	test_failed = test_initrand();
+
+	std::cout << "Test test_initrand(): ";
 	if(!test_failed)
 		std::cout << "Test succeeded." << std::endl;
 	else

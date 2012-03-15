@@ -21,4 +21,5 @@ Todo List
 + Cea/src/ops/xokpoint.hpp: Allow variable number of children independent of parents.
 + Cea/src/ops/xokpoint.hpp: Possibly remove integer template parameters. Value?
 + Cea/src/ops/seltruncation.hpp: Investigation of manual optimisation vs. STL.
++ Cea/src/ops/seltruncation.hpp: Convert throws to OO.
 + tests/test\_seltruncation.cpp: Move print\_pop into library - util/output.hpp?
