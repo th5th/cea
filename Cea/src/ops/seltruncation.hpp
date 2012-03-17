@@ -2,7 +2,6 @@
 // Selects strongest P% of the population  and
 // marks them as available.
 // TODO Investigation of manual optimisation vs. STL.
-// TODO Convert throws to OO.
 #ifndef CEA_SELTRUNCATION_HPP
 #define CEA_SELTRUNCATION_HPP
 
@@ -14,7 +13,7 @@ class OpSelTruncation : public OpPop<T>
         {
             if(pc < 0.0 || pc > 1.0)
             {
-                throw("Selection percentage must be in [0,1] in OpSelTruncation.");
+                throw(std::invalid_argument("Selection rate must be in [0,1] in OpSelTruncation."));
             }
             else
             {

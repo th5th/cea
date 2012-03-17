@@ -6,6 +6,7 @@ template <typename T>
 class Genome
 {
     public:
+        // TODO Add dependent [gs]etters for these fields to control state more closely.
         // Fitness measure, availability and evaluated flags.
         double fitness;
         bool avail;

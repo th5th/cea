@@ -17,7 +17,7 @@ class RVarUniform : public RVar<T>
         {
             if(a == b)
             {
-                throw("Bounds on RVarUniform cannot be equal.");
+                throw(std::invalid_argument("Bounds on RVarUniform cannot be equal."));
             }
             lower = a < b ? a : b;
             upper = a > b ? a : b;

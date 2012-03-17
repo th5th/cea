@@ -16,6 +16,14 @@ bool test_rvarnormal()
     const int n_tests = 1000; const double alpha = 0.05;
     const double mu = 0.0; const double sig = 1.0;
     PrngMLCGXORShift p;
+    try
+    {
+        RVarNormal<double> rn(&p,mu,0);
+    }
+    catch(std::exception& e)
+    {
+        std::cout << " | Caught exception: " << e.what() << std::endl;
+    }
     RVarNormal<double> rn(&p,mu,sig);
     std::function<double(double)> phi = [mu,sig](double x){ return 0.5 * std::erfc(-0.707106781186547524 * (x-mu)/sig); };
     KSTest tester(&rn, phi, 100);

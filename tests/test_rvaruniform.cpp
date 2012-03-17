@@ -16,6 +16,14 @@ bool test_rvaruniform()
     const int n_tests = 1000; const double alpha = 0.05;
     const double a = -3.1; const double b = 1.7;
     PrngMLCGXORShift p;
+    try
+    {
+        RVarUniform<double> ru(&p,b,b);
+    }
+    catch(std::exception& e)
+    {
+        std::cout << " | Caught exception: " << e.what() << std::endl;
+    }
     RVarUniform<double> ru(&p,a,b);
     std::function<double(double)> cdf = [a,b](double x){ return (x-a)/(b-a); };
     KSTest tester(&ru, cdf, 100);

@@ -40,6 +40,15 @@ bool test_seltruncation()
         p[i].evald = true;
     }
 
+    try
+    {
+        OpSelTruncation<float> selector(-15.4);
+    }
+    catch(std::exception& e)
+    {
+        std::cout << " | Caught exception: " << e.what() << std::endl;
+    }
+
     OpSelTruncation<float> selector(sel_p);
 
     selector.apply_to(p);

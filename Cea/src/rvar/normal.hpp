@@ -17,7 +17,7 @@ class RVarNormal : public RVar<T>
         {
             if(s == 0)
             {
-                throw("Stddev in RVarNormal must be nonzero.");
+                throw(std::invalid_argument("Stddev in RVarNormal must be nonzero."));
             }
             mean = m;
             stddev = std::abs(s);

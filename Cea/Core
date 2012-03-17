@@ -6,8 +6,10 @@
 #include <iostream>
 #endif // CEA_DEBUG
 #include <cstdint>
-#include <vector>
+#include <exception>
 #include <functional>
+#include <stdexcept>
+#include <vector>
 
 namespace cea
 {
