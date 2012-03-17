@@ -11,14 +11,14 @@
 
 using namespace cea;
 
-bool test_rvarnormal()
+bool test_rvaruniform()
 {
     const int n_tests = 1000; const double alpha = 0.05;
-    const double mu = 0.0; const double sig = 1.0;
+    const double a = -3.1; const double b = 1.7;
     PrngMLCGXORShift p;
-    RVarNormal<double> rn(&p,mu,sig);
-    std::function<double(double)> phi = [mu,sig](double x){ return 0.5 * std::erfc(-0.707106781186547524 * (x-mu)/sig); };
-    KSTest tester(&rn, phi, 100);
+    RVarUniform<double> ru(&p,a,b);
+    std::function<double(double)> cdf = [a,b](double x){ return (x-a)/(b-a); };
+    KSTest tester(&ru, cdf, 100);
     int n_ss = tester.n_tests(n_tests, alpha) ;
     std::cout << " | " << n_ss << " tests in " << n_tests << " succeeded." << std::endl;
     bool test_failed;

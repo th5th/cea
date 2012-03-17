@@ -11,8 +11,8 @@ The final aim is a library which can be used to run "quick and dirty" EAs using 
 Recent Changes
 --------------
 
-+ Several operators now in place - one of each kind with only OpTerm remaining to be represented.
-+ Added evaluation operator which allows function pointers or `std::function` objects to be used as fitness functions.
++ Gradually thinking about maybe rewriting testgen.py so it doesn't end up as Python spaghetti, Python pretending to be C, or Python for Dummies. Must Try Harder.
++ Test cases in place for RVarNormal and RVarUniform based on the Kolmogorov-Smirnov test.
 + Added todo.sh - a simple todo list maker in Bash script. It made the list below!
 
 Todo List

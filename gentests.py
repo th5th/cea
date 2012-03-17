@@ -8,14 +8,28 @@ path = abspath(argv[1])
 pretty_path = basename(path) + '/'
 path = path + '/'
 
+# Target definitions.
 project = 'cea'
 omain = 'all_tests.cpp'
 oheader = omain.replace('.cpp', '.hpp')
 oexec = omain.replace('.cpp', '')
 ocmakelists = 'CMakeLists.txt'
 
-failure_msg = 'Test failed.'
-success_msg = 'Test succeeded.'
+# Messages to cout from the test binary.
+failure_msg = ' + Test failed.'
+success_msg = ' + Test succeeded.'
+
+# Function to easily add various testing functionality
+# without making enormous test_xxx.cpp files by putting
+# all that stuff into static libraries.
+def cmake_lib_lines(libname, execname):
+    line1 = 'add_library({0} STATIC {0}.cpp)\n'.format(libname)
+    line2 = 'target_link_libraries({0} {1})\n'.format(execname, libname)
+    return [line1, line2]
+
+# Any special targets (test libraries) to
+# manually add to CMakeLists.txt.
+cmake_extra = cmake_lib_lines("kstest", oexec)
 
 def get_fn(fl):
     with open(path+fl, 'r') as f:
@@ -58,8 +72,8 @@ with open(path+omain, 'w') as f:
     for fn in test_fns:
         # Trim the unnecessary type from the front.
         fn = fn[5:]
-        f.write('\ttest_failed = {0};\n\n'.format(fn))
-        f.write('\tstd::cout << "Test {0}: ";\n'.format(fn))
+        f.write('\tstd::cout << "Test {0}:" << std::endl;\n'.format(fn))
+        f.write('\ttest_failed = {0};\n'.format(fn))
         f.write('\tif(!test_failed)\n'.format(fn))
         f.write('\t\tstd::cout << "{0}" << std::endl;\n'.format(success_msg))
         f.write('\telse\n')
@@ -75,10 +89,13 @@ with open(path+ocmakelists, 'w') as f:
     f.write('\n')
     f.write('include_directories(${PROJECT_SOURCE_DIR})\n')
     f.write('\n')
-    add_exec_cmd = 'add_executable({0} {1}'.format(oexec, omain)
+    f.write('add_executable(\n');
+    f.write('\t{0}\n'.format(oexec))
+    f.write('\t{0}\n'.format(omain))
     for fle in files:
-        add_exec_cmd += (' ' + fle)
-    add_exec_cmd += ')\n'
-    f.write(add_exec_cmd)
+        f.write('\t{0}\n'.format(fle))
+    f.write(')\n\n')
+    for line in cmake_extra:
+        f.write(line)
 
 exit(0)
