@@ -12,9 +12,9 @@ fi
 directories='Cea/ tests/'
 
 list=$(grep -r TODO $directories | sed -e 's/\/\/ TODO//' -e 's/^/+ /')
-# Here we escape unescaped _ and * with \ - so no accidental emphasis.
-list=$(echo "$list" | sed -e 's/\([^\\]\)_/\1\\_/g')
-list=$(echo "$list" | sed -e 's/\([^\\]\)\*/\1\\\*/g')
+# Escape underscores and asterisks, then ermove double \\.
+list=$(echo "$list" | sed -e 's/_/\\_/g' -e 's/\*/\\\*/g')
+list=$(echo "$list" | sed -e 's/\\\\//g')
 
 # Appends list under a todo list heading to file f.
 output()
