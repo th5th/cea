@@ -5,7 +5,7 @@
 // Add the testing header include.
 /* [[[cog
    import cog
-   cog.outl(''.join(['#include "', exec_name, '.hpp"']))
+   cog.outl('#include "{0}.hpp"'.format(exec_name))
    ]]] */
 #include "all_tests.hpp"
 // [[[end]]]

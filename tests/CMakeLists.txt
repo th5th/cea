@@ -5,13 +5,15 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 # This Cog section inserts the add_executable(...),
 # add_library(...) and target_link_libraries(...) directives.
+# It also uses add_dependencies to make the exec_name target
+# depend on the cog target.
 # [[[cog
 #   import cog
 #   import os
 #
 #   cog.outl('add_executable(')
 #   cog.outl(exec_name)
-#   cog.outl(''.join([exec_name, '.cpp']))
+#   cog.outl('{0}.cpp'.format(exec_name))
 #
 #   dir = os.path.dirname(cog.inFile)
 #   for f in os.listdir(dir):
@@ -19,6 +21,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 #           cog.outl(f)
 #
 #   cog.outl(')')
+#   cog.outl('add_dependencies({0} cog)'.format(exec_name))
 #
 #   static_libs = ['kstest']
 #   for lib in static_libs:
@@ -40,6 +43,7 @@ test_initrand.cpp
 test_xokpoint.cpp
 test_rvarnormal.cpp
 )
+add_dependencies(all_tests cog)
 add_library(kstest STATIC kstest.cpp)
 target_link_libraries(
 all_tests

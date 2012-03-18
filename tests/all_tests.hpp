@@ -1,18 +1,19 @@
-// All_tests.hpp generated automatically from test files in tests/ by gentests.py.
-// Add the testing header guard.
+// This file generated using the Ned Batchelder's Cog inline 
+// code generation tool. See http://nedbatchelder.com/code/cog/
+
 /* [[[cog
    import cog
    import os
-   cog.outl(''.join(['#ifndef ', exec_name.upper(), '_HPP']))
-   cog.outl(''.join(['#define ', exec_name.upper(), '_HPP']))
+   cog.outl('#ifndef {0}_HPP'.format(exec_name.upper()))
+   cog.outl('#define {0}_HPP'.format(exec_name.upper()))
 
    dir = os.listdir(os.path.dirname(cog.inFile))
    dir.sort()
    for f in dir:
        if f.startswith('test_') and f.endswith('.cpp'):
-           cog.outl(''.join(['bool ', f.replace('.cpp', '();')]))
+           cog.outl('bool {0}'.format(f.replace('.cpp', '();')))
 
-   cog.outl(''.join(['#endif // ', exec_name.upper(), '_HPP']))
+   cog.outl('#endif // {0}_HPP'.format(exec_name.upper()))
 
    ]]] */
 #ifndef ALL_TESTS_HPP

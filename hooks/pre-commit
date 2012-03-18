@@ -19,13 +19,6 @@ if [ $tracked_hook -nt $execd_hook ]; then
 	fail
 fi
 
-# Next run gentests.py to produce test binary.
-cog.py -U -r -D exec_name=all_tests @$repo_root/coglist
-if [ $? -ne 0 ]; then
-	echo "Cog failed."
-	fail
-fi
-
 # Next is make
 cmake --build "$repo_root"
 if [ $? -ne 0 ]; then
