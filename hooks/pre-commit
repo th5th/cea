@@ -20,9 +20,9 @@ if [ $tracked_hook -nt $execd_hook ]; then
 fi
 
 # Next run gentests.py to produce test binary.
-python "$repo_root/gentests.py" "$repo_root/tests/"
+cog.py -U -r -D exec_name=all_tests @$repo_root/coglist
 if [ $? -ne 0 ]; then
-	echo "gentests.py failed."
+	echo "Cog failed."
 	fail
 fi
 

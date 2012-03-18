@@ -11,9 +11,11 @@ The final aim is a library which can be used to run "quick and dirty" EAs using 
 Recent Changes
 --------------
 
++ gentests.py discarded in favour of [Cog][coglink], a third party tool allowing Python to be embedded in C++ (or any) files for code generation.
 + Began using try, catch and throw for error handling, and included tests of these in a few test cases.
-+ Gradually thinking about maybe rewriting testgen.py so it doesn't end up as Python spaghetti, Python pretending to be C, or Python for Dummies. Must Try Harder.
 + Test cases in place for RVarNormal and RVarUniform based on the Kolmogorov-Smirnov test.
+
+[coglink]: http://nedbatchelder.com/code/cog/
 
 Todo List
 ---------
