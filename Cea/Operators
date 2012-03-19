@@ -6,8 +6,9 @@
 #include "Core"
 
 // Additional stdlib stuff needed here.
-#include <deque>
 #include <algorithm>
+#include <deque>
+#include <type_traits>
 
 namespace cea
 {
@@ -25,7 +26,7 @@ namespace cea
 	// #include "src/ops/xoproportionate.hpp"
     
 	// Mutators
-	// #include "src/ops/mutoffset.hpp"
+	#include "src/ops/mutoffset.hpp"
 	// #include "src/ops/mutgeneshuffle.hpp"
 
 	// Terminators

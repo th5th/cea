@@ -41,6 +41,7 @@ test_seltruncation.cpp
 test_evalfitness.cpp
 test_initrand.cpp
 test_xokpoint.cpp
+test_mutoffset.cpp
 test_rvarnormal.cpp
 )
 add_dependencies(all_tests cog)

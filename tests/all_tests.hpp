@@ -20,6 +20,7 @@
 #define ALL_TESTS_HPP
 bool test_evalfitness();
 bool test_initrand();
+bool test_mutoffset();
 bool test_rvarnormal();
 bool test_rvaruniform();
 bool test_seltruncation();

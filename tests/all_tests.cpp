@@ -54,6 +54,14 @@ std::cout << " + Test succeeded." << std::endl;
 std::cout << " + Test failed." << std::endl;
 }
 overall_failed |= test_failed;
+std::cout << "Test test_mutoffset():" << std::endl;
+test_failed = test_mutoffset();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
 std::cout << "Test test_rvarnormal():" << std::endl;
 test_failed = test_rvarnormal();
 if(!test_failed) {
