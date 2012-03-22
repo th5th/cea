@@ -11,7 +11,7 @@
 // [[[end]]]
 
 
-int main(int argc, char* argv[])
+int main()
 {
 	bool test_failed = false;
 	bool overall_failed = false;
