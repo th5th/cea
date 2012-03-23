@@ -2,27 +2,37 @@
 #ifndef CEA_POP_HPP
 #define CEA_POP_HPP
 
-template <typename T>
-class Pop
+template <template <class U1, class U2 = std::allocator<U1> > class COuter,
+         template <class V1, class V2 = std::allocator<V1> > class CInner,
+         typename T>
+class pop
 {
     public:
-        Pop(int p_s, int g_s)
-            : pop(p_s, Genome<T>(g_s)) {}
+        typedef typename COuter< genome<CInner,T> >::iterator iterator;
+        typedef typename COuter< genome<CInner,T> >::const_iterator const_iterator;
+        typedef typename COuter< genome<CInner,T> >::size_type size_type;
+
+        pop(int p_s, int g_s) :
+            run_flag(true), genomes(p_s, genome<CInner,T>(g_s)) { }
+
+        // Flag to allow termination of population.
+        bool running() const { return run_flag; }
+        void running(bool r) { run_flag = r; }
 
         // Forward some of the underlying vector<T> functionality.
-        typename std::vector<T>::size_type size() const { return pop.size(); }
-        void resize(typename std::vector<T>::size_type size) { pop.resize(size); }
-        typename std::vector< Genome<T> >::iterator begin() { return pop.begin(); }
-        typename std::vector< Genome<T> >::const_iterator begin() const { return pop.begin(); }
-        typename std::vector< Genome<T> >::iterator end() { return pop.end(); }
-        typename std::vector< Genome<T> >::const_iterator end() const { return pop.end(); }
+        size_type size() const { return genomes.size(); }
 
-        // Random accessor operator.
-        Genome<T>& operator[](int i) { return pop[i]; }
-        Genome<T> const& operator[](int i) const { return pop[i]; }
+        void resize(size_type size) { genomes.resize(size); }
+
+        iterator begin() { return genomes.begin(); }
+        const_iterator begin() const { return genomes.begin(); }
+
+        iterator end() { return genomes.end(); }
+        const_iterator end() const { return genomes.end(); }
 
     private:
-        std::vector< Genome<T> > pop;
+        bool run_flag;
+        COuter< genome<CInner,T> > genomes;
 };
 
 #endif // CEA_POP_HPP

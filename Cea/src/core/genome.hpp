@@ -1,48 +1,107 @@
-// Data structures.
+// Genome DS.
 #ifndef CEA_GENOME_HPP
 #define CEA_GENOME_HPP
 
-template <typename T>
-class Genome
+template <template <class _U, class _V = std::allocator<_U> > class CInner,
+         typename T>
+class genome
 {
     public:
-        // TODO Add dependent [gs]etters for these fields to control state more closely.
-        // Fitness measure, availability and evaluated flags.
-        double fitness;
-        bool avail;
-        bool evald;
+        // Externalised typedefs of limited application...
+        typedef typename CInner<T>::iterator iterator;
+        typedef typename CInner<T>::const_iterator const_iterator;
+        typedef typename CInner<T>::size_type size_type;
 
-        Genome() :
-            fitness(0.0), avail(true), evald(false) {}
+        genome() : alive_flag(false), evald_flag(false), f_val(0.0) { }
 
-        Genome(typename std::vector<T>::size_type g_s)
-            : fitness(0.0), avail(true), evald(false), genes(g_s, 0) {}
+        genome(size_type g_s)
+            : alive_flag(false), evald_flag(false),
+            f_val(0.0), genes(g_s, static_cast<T>(0)) { }
 
-        // Forward some of the underlying vector<T> functionality.
-        typename std::vector<T>::size_type size() const { return genes.size(); }
-        void resize(typename std::vector<T>::size_type size) { genes.resize(size); }
-        typename std::vector<T>::iterator begin() { return genes.begin(); }
-        typename std::vector<T>::const_iterator begin() const { return genes.begin(); }
-        typename std::vector<T>::iterator end() { return genes.end(); }
-        typename std::vector<T>::const_iterator end() const { return genes.end(); }
+        // Manipulators for genome's flags.
+        bool alive() const { return alive_flag; }
+        void alive(bool a) { alive_flag = a; }
 
-        // Random accessor operator.
-        T& operator[](int i) { return genes[i]; }
-        T const& operator[](int i) const { return genes[i]; }
+        bool evald() const
+        {
+            if(alive_flag == true)
+            {
+                return evald_flag;
+            }
+            else
+            {
+                throw(std::runtime_error("In genome: alive_flag must be true to read evald_flag."));
+            }
+        }
+
+        void evald(bool e)
+        {
+            if(alive_flag == true)
+            {
+                evald_flag = e;
+            }
+            else
+            {
+                throw(std::runtime_error("In genome: alive_flag must be true to write evald_flag."));
+            }
+        }
+
+        double fitness() const
+        {
+            if(alive_flag == true && evald_flag == true)
+            {
+                return f_val;
+            }
+            else
+            {
+                throw(std::runtime_error("In genome: alive_flag && evald_flag must be true to read f_val."));
+            }
+        }
+
+        void fitness(double f)
+        {
+            if(alive_flag == true && evald_flag == true)
+            {
+                f_val = f;
+            }
+            else
+            {
+                throw(std::runtime_error("In genome: alive_flag && evald_flag must be true to write f_val."));
+            }
+        }
+
+        // Forward some of the underlying CInner<T> functionality.
+        size_type size() const { return genes.size(); }
+
+        void resize(size_type sz) { genes.resize(sz); }
+
+        iterator begin() { return genes.begin(); }
+        const_iterator begin() const { return genes.begin(); }
+
+        iterator end() { return genes.end(); }
+        const_iterator end() const { return genes.end(); }
 
         // Comparison and efficient swapping.
-        bool operator<(Genome<T> const& g2) const { return fitness < g2.fitness; }
-        friend void swap(Genome<T>&g1, Genome<T>& g2)
+        bool operator<(genome<CInner,T> const& g2) const
         {
-            std::swap(g1.avail, g2.avail);
-            std::swap(g1.evald, g2.evald);
-            std::swap(g1.fitness, g2.fitness);
+            return f_val < g2.f_val;
+        }
+
+        friend void swap(genome<CInner,T>& g1, genome<CInner,T>& g2)
+        {
+            std::swap(g1.alive_flag, g2.alive_flag);
+            std::swap(g1.evald_flag, g2.evald_flag);
+            std::swap(g1.f_val, g2.f_val);
             g1.genes.swap(g2.genes);
             return;
         }
 
     private:
-        std::vector<T> genes;
+        bool alive_flag;
+        bool evald_flag;
+        double f_val;
+
+        CInner<T> genes;
 };
 
 #endif // CEA_GENOME_HPP

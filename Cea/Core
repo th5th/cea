@@ -13,23 +13,18 @@
 
 namespace cea
 {
-    // Provides debug output.
-    #include "src/util/macros.hpp"
-    
     // Basic data structures.
     #include "src/core/genome.hpp"
     #include "src/core/pop.hpp"
-    
-    // Core operator functionality.
-    #include "src/ops/oppop.hpp"
-    #include "src/ops/opgenome.hpp"
-    #include "src/ops/evalfitness.hpp"
 
     // Randomness abstract base classes.
     #include "src/core/prng.hpp"
     #include "src/core/rvar.hpp"
 
 	// Core algorithm class.
-    #include "src/core/alg.hpp"
+    #include "src/core/cea.hpp"
+
+    // Provide debug output.
+    #include "src/util/print.hpp"
 }
 #endif // CEA_CORE_HPP

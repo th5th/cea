@@ -18,12 +18,6 @@
    ]]] */
 #ifndef ALL_TESTS_HPP
 #define ALL_TESTS_HPP
-bool test_evalfitness();
-bool test_initrand();
-bool test_mutoffset();
-bool test_rvarnormal();
-bool test_rvaruniform();
-bool test_seltruncation();
-bool test_xokpoint();
+bool test_core();
 #endif // ALL_TESTS_HPP
 // [[[end]]]
