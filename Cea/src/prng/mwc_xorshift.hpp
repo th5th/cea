@@ -3,11 +3,11 @@
    + Period: ~= 8.5 x 10^37 (~10^19x)
    + Speed: Medium (~0.8x)
 */
-#ifndef CEA_MWCXORS_HPP
-#define CEA_MWCXORS_HPP
+#ifndef CEA_MWC_XORSHIFT_HPP
+#define CEA_MWC_XORSHIFT_HPP
 
 // Parameter definitions.
-namespace mwcxors
+namespace mwc_xorshift
 {
 
     const uint32_t S1 = 20;
@@ -18,26 +18,26 @@ namespace mwcxors
     const uint64_t X0 = 4101842887655102017;
 }
 
-class PrngMWCXORShift : public Prng
+class prng_mwc_xorshift : public prng
 {
     public:
-        PrngMWCXORShift(uint64_t seed = 1)
+        prng_mwc_xorshift(uint64_t seed = 1)
         {
             srand(seed);
         }
 
         uint64_t rand()
         {
-            x ^= (x << mwcxors::S1);
-            x ^= (x >> mwcxors::S2);
-            x ^= (x << mwcxors::S3);
-            y = mwcxors::M * (y & 0xFFFFFFFF) + (y >> 32);
+            x ^= (x << mwc_xorshift::S1);
+            x ^= (x >> mwc_xorshift::S2);
+            x ^= (x << mwc_xorshift::S3);
+            y = mwc_xorshift::M * (y & 0xFFFFFFFF) + (y >> 32);
             return x ^ y;
         }
 
         void srand(uint64_t seed)
         {
-            x = (seed == mwcxors::X0 ? 1 : seed ^ mwcxors::X0);
+            x = (seed == mwc_xorshift::X0 ? 1 : seed ^ mwc_xorshift::X0);
             y = 1;
             y = rand();
             x = rand();
@@ -47,4 +47,4 @@ class PrngMWCXORShift : public Prng
         uint64_t x, y;
 };
 
-#endif // CEA_MWCXORS_HPP
+#endif // CEA_MWC_XORSHIFT_HPP

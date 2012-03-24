@@ -14,13 +14,21 @@ class genome
 
         genome() : alive_flag(false), evald_flag(false), f_val(0.0) { }
 
-        genome(size_type g_s)
-            : alive_flag(false), evald_flag(false),
+        genome(size_type g_s) :
+            alive_flag(false), evald_flag(false),
             f_val(0.0), genes(g_s, static_cast<T>(0)) { }
 
         // Manipulators for genome's flags.
         bool alive() const { return alive_flag; }
-        void alive(bool a) { alive_flag = a; }
+        void alive(bool a)
+        {
+            // This logic changes evald_flag in the following cases.
+            // new evald_flag | evald_flag | a | alive_flag
+            //       0              1        0       1
+            //       0              1        1       0
+            evald_flag &= !(a^alive_flag);
+            alive_flag = a; 
+        }
 
         bool evald() const
         {
@@ -30,7 +38,8 @@ class genome
             }
             else
             {
-                throw(std::runtime_error("In genome: alive_flag must be true to read evald_flag."));
+                throw(std::runtime_error("In genome: alive_flag "
+                    "must be true to read evald_flag."));
             }
         }
 
@@ -42,7 +51,8 @@ class genome
             }
             else
             {
-                throw(std::runtime_error("In genome: alive_flag must be true to write evald_flag."));
+                throw(std::runtime_error("In genome: alive_flag "
+                   "must be true to write evald_flag."));
             }
         }
 
@@ -54,7 +64,8 @@ class genome
             }
             else
             {
-                throw(std::runtime_error("In genome: alive_flag && evald_flag must be true to read f_val."));
+                throw(std::runtime_error("In genome: alive_flag &&"
+                   " evald_flag must be true to read f_val."));
             }
         }
 
@@ -66,7 +77,8 @@ class genome
             }
             else
             {
-                throw(std::runtime_error("In genome: alive_flag && evald_flag must be true to write f_val."));
+                throw(std::runtime_error("In genome: alive_flag &&"
+                   " evald_flag must be true to write f_val."));
             }
         }
 

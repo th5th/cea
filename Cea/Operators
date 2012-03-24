@@ -2,31 +2,32 @@
 #ifndef CEA_OPERATORS_HPP
 #define CEA_OPERATORS_HPP
 
-// Base classes and stdlib things.
+// Basic cea stuff which we need.
 #include "Core"
 
 // Additional stdlib stuff needed here.
 #include <algorithm>
-#include <deque>
-#include <type_traits>
 
 namespace cea
 {
+    // Debug init / eval.
+    #include "src/ops/init_debug.hpp"
+
 	// Initialisers
-    #include "src/ops/initrand.hpp"
+    #include "src/ops/init_rand.hpp"
     // #include "src/ops/initdeterm.hpp"
 
 	// Selectors
 	// #include "src/ops/seltournament.hpp"
 	// #include "src/ops/selroulette.hpp"
-	#include "src/ops/seltruncation.hpp"
+	#include "src/ops/sel_trunc.hpp"
 
 	// Crossovers
-    #include "src/ops/xokpoint.hpp"
+    #include "src/ops/xo_2point.hpp"
 	// #include "src/ops/xoproportionate.hpp"
     
 	// Mutators
-	#include "src/ops/mutoffset.hpp"
+	#include "src/ops/mut_offset.hpp"
 	// #include "src/ops/mutgeneshuffle.hpp"
 
 	// Terminators

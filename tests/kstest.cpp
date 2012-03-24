@@ -1,6 +1,6 @@
 #include "kstest.hpp"
 
-int KSTest::n_tests(int n, double alpha)
+int ks_test::n_tests(int n, double alpha)
 {
     int n_ss = 0;
     for(int i = 0; i < n; ++i)
@@ -13,7 +13,7 @@ int KSTest::n_tests(int n, double alpha)
     return n_ss;
 }
 
-double KSTest::single_test()
+double ks_test::single_test()
 {
     // Returns significance level required for
     // the generated data's KS statistic to cause
@@ -37,7 +37,7 @@ double KSTest::single_test()
     return 1.0 - ks_cdf(std::sqrt(n) * D);
 }
 
-void KSTest::gen_data()
+void ks_test::gen_data()
 {
     data.resize(n_points);
     for(int i = 0; i < n_points; ++i)
@@ -48,13 +48,13 @@ void KSTest::gen_data()
 }
 
 
-double KSTest::ks_cdf(double z)
+double ks_test::ks_cdf(double z)
 {
     // CDF of the Kolmogorov-Smirnov distribution.
     using std::exp; using std::pow; using std::sqrt;
     if(z < 0.0)
     {
-        throw("z must be non-negative in ks_cdf in KSTest.");
+        throw("z must be non-negative in ks_cdf in ks_test.");
     }
     else if(z == 0.0)
     {
@@ -64,7 +64,8 @@ double KSTest::ks_cdf(double z)
     {
         double x = 1.23370055013616983/square(z);
         double y = exp(-x);
-        return 2.25675833419102515*sqrt(x)*(y + pow(y,9) + pow(y,25) + pow(y,49));
+        return 2.25675833419102515*sqrt(x)*
+            (y + pow(y,9) + pow(y,25) + pow(y,49));
     }
     else
     {

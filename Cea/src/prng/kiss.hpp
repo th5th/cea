@@ -26,10 +26,10 @@ namespace kiss
     const uint64_t W0 = 1;;
 }
 
-class PrngKISS : public Prng
+class prng_kiss : public prng
 {
     public:
-        PrngKISS(uint64_t seed = 1)
+        prng_kiss(uint64_t seed = 1)
         {
             srand(seed);
         }

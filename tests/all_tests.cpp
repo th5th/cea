@@ -38,8 +38,48 @@ int main()
        cog.outl('}')
        cog.outl('overall_failed |= test_failed;')
    ]]] */
-std::cout << "Test test_core():" << std::endl;
-test_failed = test_core();
+std::cout << "Test test_init_rand():" << std::endl;
+test_failed = test_init_rand();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
+std::cout << "Test test_mut_offset():" << std::endl;
+test_failed = test_mut_offset();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
+std::cout << "Test test_rvar_normal():" << std::endl;
+test_failed = test_rvar_normal();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
+std::cout << "Test test_rvar_uniform():" << std::endl;
+test_failed = test_rvar_uniform();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
+std::cout << "Test test_sel_trunc():" << std::endl;
+test_failed = test_sel_trunc();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
+std::cout << "Test test_xo_2point():" << std::endl;
+test_failed = test_xo_2point();
 if(!test_failed) {
 std::cout << " + Test succeeded." << std::endl;
 } else {

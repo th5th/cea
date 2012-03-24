@@ -1,12 +1,12 @@
 // Support class to generate pseudo random numbers.
-#ifndef CEA_PRNG_H
-#define CEA_PRNG_H
+#ifndef CEA_PRNG_HPP
+#define CEA_PRNG_HPP
 
-class Prng
+class prng
 {
     public:
         virtual void srand(uint64_t seed) = 0;
         virtual uint64_t rand() = 0;
 };
 
-#endif // CEA_PRNG_H
+#endif // CEA_PRNG_HPP

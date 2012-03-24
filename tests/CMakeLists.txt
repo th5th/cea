@@ -36,12 +36,17 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_executable(
 all_tests
 all_tests.cpp
-test_core.cpp
+test_sel_trunc.cpp
+test_rvar_normal.cpp
+test_mut_offset.cpp
+test_xo_2point.cpp
+test_rvar_uniform.cpp
+test_init_rand.cpp
 )
-#add_dependencies(all_tests cog)
-#add_library(kstest STATIC kstest.cpp)
-#target_link_libraries(
-#all_tests
-#kstest
-#)
+add_dependencies(all_tests cog)
+add_library(kstest STATIC kstest.cpp)
+target_link_libraries(
+all_tests
+kstest
+)
 # [[[end]]]

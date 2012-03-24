@@ -11,17 +11,18 @@ The final aim is a library which can be used to run "quick and dirty" EAs using 
 Recent Changes
 --------------
 
-+ Fleshed out main cea class, including `make\_op` member, which instantiates templated classes (which provide the correct parameters) for use as genetic operators compatible with the calling cea instance.
++ Tests largely redone. Some are only demo cases at the moment, with no value checking undertaken.
++ Operators reimplemented as functors compatible with alg's `make_op` member.
++ Fleshed out main cea class, including `make_op` member, which instantiates templated classes (which provide the correct parameters) for use as genetic operators compatible with the calling cea instance.
 + Major redesign to allow populations to be built from _any_ roughly STL compliant containers. Users will write `cea::cea<std::vector, std::list, float> myCeaAlg(num_individuals, num_genes);`, for example.
 + gentests.py discarded in favour of [Cog][coglink], a third party tool allowing Python to be embedded in C++ (or any) files for code generation.
-+ Began using try, catch and throw for error handling, and included tests of these in a few test cases.
 
 [coglink]: http://nedbatchelder.com/code/cog/
 
 Todo List
 ---------
 
-+ Cea/src/ops/xokpoint.hpp: Allow variable number of children independent of parents.
-+ Cea/src/ops/xokpoint.hpp: Possibly remove integer template parameters. Value?
-+ Cea/src/ops/seltruncation.hpp: Investigation of manual optimisation vs. STL.
-+ tests/test\_seltruncation.cpp: Move print\_pop into library - util/output.hpp?
++ Make todo.sh trim whitespace appearing before "// TODO".
++ Cea/src/ops/xo\_2point.hpp: Allow variable number of children independent of parents.
++ Cea/src/ops/sel\_trunc.hpp: Make op\_sel\_trunc work properly with non-RA iterators.
++ Cea/src/ops/sel\_trunc.hpp: Implementation reorders the population - desirable? 

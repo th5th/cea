@@ -4,36 +4,23 @@
 
 using namespace cea;
 
-bool test_xokpoint()
+bool test_xo_2point()
 {
-    bool test_failed = false;
-	Pop<uint64_t> p(4,24);
+	alg<std::vector, std::vector, int> alg(8,12);
+    auto printer = alg.make_op<print>(5);
+    alg.make_and_push_back<op_init_debug>();
+    alg.push_back(printer);
+    alg.make_and_push_back<op_sel_trunc>(0.5);
+    alg.push_back(printer);
 
-    // Mock initalisation.
-    for(uint64_t i = 0; i < p.size(); ++i)
-    {
-        p[i].avail = false;
-        p[i].evald = false;
-        p[i].fitness = 0.0;
-        for(uint64_t j = 0; j < p[i].size(); ++j)
-        {
-            p[i][j] = 24*i + j;
-        }
-    }
+    prng_kiss p;
+    rvar_uniform<unsigned int> xop_src(&p, 0, 12);
+    alg.make_and_push_back<op_xo_2point>(&xop_src, 3);
+    alg.push_back(printer);
 
-    // Mock selection.
-	p[2].avail = true;
-	p[3].avail = true;
-
-    uint64_t pts[] = {0,0,11,6,11,4,0,19};
-    // In generating the crossover points, gen_
-    // and check_points should reduce this set
-    // down to 4,6,11,19.
-    std::vector<uint64_t> points(pts, pts+8);
-    DebugRVar<uint64_t> xo_points(points);
-	OpXoKpoint<uint64_t, 2, 4> xo(&xo_points);
-	xo.apply_to(p);
-
+    alg.run_once();
+    bool test_failed = true;
+    /*
     // Check results.
     for(uint32_t i = 0; i < p.size(); ++i)
     {
@@ -92,6 +79,7 @@ bool test_xokpoint()
             }
         }
     }
+    */
 
 	return test_failed;
 }

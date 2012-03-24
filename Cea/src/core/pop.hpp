@@ -8,8 +8,12 @@ template <template <class U1, class U2 = std::allocator<U1> > class COuter,
 class pop
 {
     public:
+        typedef typename COuter< genome<CInner,T> >::pointer pointer;
+        typedef typename COuter< genome<CInner,T> >::const_pointer
+            const_pointer;
         typedef typename COuter< genome<CInner,T> >::iterator iterator;
-        typedef typename COuter< genome<CInner,T> >::const_iterator const_iterator;
+        typedef typename COuter< genome<CInner,T> >::const_iterator
+            const_iterator;
         typedef typename COuter< genome<CInner,T> >::size_type size_type;
 
         pop(int p_s, int g_s) :

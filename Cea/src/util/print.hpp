@@ -2,9 +2,6 @@
 //
 // Limited to debugging really, since printing large
 // data sets to the console is impractical.
-//
-// Note if used alone in a cea object, print() will be
-// called indefinitely, as it does not set p.running(false).
 #ifdef CEA_DEBUG
 #ifndef CEA_PRINT_HPP
 #define CEA_PRINT_HPP
@@ -15,23 +12,55 @@ template <template <class U1, class U2 = std::allocator<U1> > class COuter,
 class print
 {
     public:
+        print(unsigned int w) : width(w) { }
+
         void operator()(pop<COuter,CInner,T>& p)
         {
             auto p_it = p.begin();
-            std::cout << p.size() << std::endl;
-            std::cout << p_it->size() << std::endl;
-
             for(; p_it != p.end(); ++p_it)
             {
-                auto it_gvf = p_it->begin();
-                for(; it_gvf != p_it->end(); ++it_gvf)
+                auto g_it = p_it->begin();
+                for(; g_it != p_it->end(); ++g_it)
                 {
-                    std::cout << *it_gvf;
+                    std::cout.width(width);
+                    std::cout.precision(2);
+                    std::cout << std::fixed << *g_it;
                 }
-                std::cout << std::endl;
+                std::cout << " |";
+                // Output such flags as are available.
+                if(p_it->alive() == false)
+                {
+                    std::cout.width(2);
+                    std::cout << p_it->alive();
+                    std::cout.width(2);
+                    std::cout << "-";
+                    std::cout.width(width);
+                    std::cout << "-" << std::endl;
+                }
+                else if(p_it->evald() == false)
+                {
+                    std::cout.width(2);
+                    std::cout << p_it->alive();
+                    std::cout.width(2);
+                    std::cout << p_it->evald();
+                    std::cout.width(width);
+                    std::cout << "-" << std::endl;
+                }
+                else
+                {
+                    std::cout.width(2);
+                    std::cout << p_it->alive();
+                    std::cout.width(2);
+                    std::cout << p_it->evald();
+                    std::cout.width(width);
+                    std::cout << p_it->fitness() << std::endl;
+                }
             }
             std::cout << std::endl;
         }
+
+    private:
+        unsigned int width;
 };
 
 #endif // CEA_PRINT_HPP

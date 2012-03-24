@@ -18,6 +18,11 @@
    ]]] */
 #ifndef ALL_TESTS_HPP
 #define ALL_TESTS_HPP
-bool test_core();
+bool test_init_rand();
+bool test_mut_offset();
+bool test_rvar_normal();
+bool test_rvar_uniform();
+bool test_sel_trunc();
+bool test_xo_2point();
 #endif // ALL_TESTS_HPP
 // [[[end]]]

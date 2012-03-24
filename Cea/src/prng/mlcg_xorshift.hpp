@@ -3,11 +3,11 @@
    + Period: ~=1.8 x 10^19 (1x)
    + Speed: Fast (1x)
 */
-#ifndef CEA_MLCGXORS_HPP
-#define CEA_MLCGXORS_HPP
+#ifndef CEA_MLCG_XORSHIFT_HPP
+#define CEA_MLCG_XORSHIFT_HPP
 
 // Parameter definitions.
-namespace xorshift
+namespace mlcg_xorshift
 {
     const uint64_t A = 7664345821815920749;
 
@@ -18,25 +18,25 @@ namespace xorshift
     const uint64_t X0 = 3935559000370003845;
 }
 
-class PrngMLCGXORShift : public Prng
+class prng_mlcg_xorshift : public prng
 {
     public:
-        PrngMLCGXORShift(uint64_t seed = 1)
+        prng_mlcg_xorshift(uint64_t seed = 1)
         {
             srand(seed);
         }
 
         uint64_t rand()
         {
-            x ^= (x << xorshift::S1);
-            x ^= (x >> xorshift::S2);
-            x ^= (x << xorshift::S3);
-            return xorshift::A * x;
+            x ^= (x << mlcg_xorshift::S1);
+            x ^= (x >> mlcg_xorshift::S2);
+            x ^= (x << mlcg_xorshift::S3);
+            return mlcg_xorshift::A * x;
         }
 
         void srand(uint64_t seed)
         {
-            x = seed == xorshift::X0 ? 1 : seed ^ xorshift::X0;
+            x = seed == mlcg_xorshift::X0 ? 1 : seed ^ mlcg_xorshift::X0;
             x = rand();
         }
 
@@ -45,4 +45,4 @@ class PrngMLCGXORShift : public Prng
         uint64_t x;
 };
 
-#endif // CEA_MLCGXORS_HPP
+#endif // CEA_MLCG_XORSHIFT_HPP

@@ -22,14 +22,14 @@ namespace cea
 	   + Period: ~=1.8 x 10^19 (1x)
 	   + Speed: Fast (1x)
 	*/
-    #include "src/prng/mlcgxors.hpp"
+    #include "src/prng/mlcg_xorshift.hpp"
 
 	/*
 	   Generator combining an XOR shift with an MWC generator.
 	   + Period: ~= 8.5 x 10^37 (~10^19x)
 	   + Speed: Medium (~0.8x)
 	*/
-    #include "src/prng/mwcxors.hpp"
+    #include "src/prng/mwc_xorshift.hpp"
 
 	/*
 	   KISS generator formed from 2 XOR shifts,
@@ -43,44 +43,13 @@ namespace cea
     #include "src/rvar/uniform.hpp"
     #include "src/rvar/normal.hpp"
 
-/* junk
-	class RVarLogNormal : public RVar<double>
-	{
-		public:
-			// Constructors
-			RVarLogNormal(Prng * src, uint64_t seed);
-
-			void set_source(Prng * src);
-			void srand(uint64_t seed);
-			double rand();
-
-		private:
-			// PRNG
-			Prng * source;
-	};
-
-	class RVarPoisson : public RVar<uint64_t>
-	{
-		public:
-			// Constructors
-			RVarPoisson(Prng * src, uint64_t seed);
-
-			void set_source(Prng * src);
-			void srand(uint64_t seed);
-			uint64_t rand();
-
-		private:
-			// PRNG
-			Prng * source;
-	};
-*/
 #ifdef CEA_DEBUG
 	// Debug RVar - testing only.
 	template <typename T>
-	class DebugRVar : public RVar<T>
+	class rvar_debug : public rvar<T>
 	{
 		public:
-            DebugRVar(std::vector<T> op) : output(op)
+            rvar_debug(std::vector<T> op) : output(op)
             {
                 i = 0;
             }
@@ -94,7 +63,7 @@ namespace cea
 		private:
 			// Fake state stored here.
             std::vector<T> output;
-            uint32_t i;
+            int i;
 	};
 #endif // CEA_DEBUG
 }
