@@ -22,7 +22,6 @@ Recent Changes
 Todo List
 ---------
 
-+ Make todo.sh trim whitespace appearing before "// TODO".
 + Cea/src/ops/xo\_2point.hpp: Allow variable number of children independent of parents.
 + Cea/src/ops/sel\_trunc.hpp: Make op\_sel\_trunc work properly with non-RA iterators.
 + Cea/src/ops/sel\_trunc.hpp: Implementation reorders the population - desirable? 

@@ -11,7 +11,7 @@ fi
 
 directories='Cea/ tests/'
 
-list=$(grep -r TODO $directories | sed -e 's/\/\/ TODO//' -e 's/^/+ /')
+list=$(grep -r TODO $directories | sed -e 's/[ \t]*\/\/ TODO//' -e 's/^/+ /')
 # Escape underscores and asterisks, then ermove double \\.
 list=$(echo "$list" | sed -e 's/_/\\_/g' -e 's/\*/\\\*/g')
 list=$(echo "$list" | sed -e 's/\\\\//g')
