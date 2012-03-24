@@ -41,4 +41,5 @@ namespace op_term_fixed_time_internal
 }           
 
 using op_term_fixed_time_internal::op_term_fixed_time;
+
 #endif // CEA_TERM_FIXED_TIME_HPP

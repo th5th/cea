@@ -7,44 +7,46 @@
 #define CEA_MWC_XORSHIFT_HPP
 
 // Parameter definitions.
-namespace mwc_xorshift
+namespace prng_mwc_xorshift_internal
 {
+    const int S1 = 20;
+    const int S2 = 41;
+    const int S3 = 5;
 
-    const uint32_t S1 = 20;
-    const uint32_t S2 = 41;
-    const uint32_t S3 = 5;
+    const uint32_t M = 1640531364U;
 
-    const uint32_t M = 1640531364;
-    const uint64_t X0 = 4101842887655102017;
+    const uint64_t X0 = 4101842887655102017ULL;
+
+    class prng_mwc_xorshift : public prng
+    {
+        public:
+            prng_mwc_xorshift(uint64_t seed = 1)
+            {
+                srand(seed);
+            }
+
+            uint64_t rand()
+            {
+                x ^= (x << S1);
+                x ^= (x >> S2);
+                x ^= (x << S3);
+                y = M * (y & 0xFFFFFFFF) + (y >> 32);
+                return x ^ y;
+            }
+
+            void srand(uint64_t seed)
+            {
+                x = (seed == X0 ? 1 : seed ^ X0);
+                y = 1;
+                y = rand();
+                x = rand();
+            }
+
+        private:
+            uint64_t x, y;
+    };
 }
 
-class prng_mwc_xorshift : public prng
-{
-    public:
-        prng_mwc_xorshift(uint64_t seed = 1)
-        {
-            srand(seed);
-        }
-
-        uint64_t rand()
-        {
-            x ^= (x << mwc_xorshift::S1);
-            x ^= (x >> mwc_xorshift::S2);
-            x ^= (x << mwc_xorshift::S3);
-            y = mwc_xorshift::M * (y & 0xFFFFFFFF) + (y >> 32);
-            return x ^ y;
-        }
-
-        void srand(uint64_t seed)
-        {
-            x = (seed == mwc_xorshift::X0 ? 1 : seed ^ mwc_xorshift::X0);
-            y = 1;
-            y = rand();
-            x = rand();
-        }
-
-    private:
-        uint64_t x, y;
-};
+using prng_mwc_xorshift_internal::prng_mwc_xorshift;
 
 #endif // CEA_MWC_XORSHIFT_HPP
