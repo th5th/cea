@@ -14,8 +14,8 @@ class genome
 
         genome() : alive_flag(false), evald_flag(false), f_val(0.0) { }
 
-        genome(size_type g_s) :
-            alive_flag(false), evald_flag(false),
+        genome(size_type g_s)
+            : alive_flag(false), evald_flag(false),
             f_val(0.0), genes(g_s, static_cast<T>(0)) { }
 
         // Manipulators for genome's flags.

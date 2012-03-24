@@ -78,6 +78,14 @@ std::cout << " + Test succeeded." << std::endl;
 std::cout << " + Test failed." << std::endl;
 }
 overall_failed |= test_failed;
+std::cout << "Test test_term_fixed_time():" << std::endl;
+test_failed = test_term_fixed_time();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
 std::cout << "Test test_xo_2point():" << std::endl;
 test_failed = test_xo_2point();
 if(!test_failed) {

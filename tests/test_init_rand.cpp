@@ -66,9 +66,6 @@ bool test_init_rand()
     rvar_uniform<float> r1(&prng1, -2.0, 2.0);
     rvar_uniform<float> r2(&prng2, -2.0, 2.0);
 
-    r1.set_source(&prng1);
-    r2.set_source(&prng2);
-
     alg_obj.make_and_push_back<op_init_rand>(&r1);
 
     bool test_failed = false;

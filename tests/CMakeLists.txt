@@ -40,6 +40,7 @@ test_sel_trunc.cpp
 test_rvar_normal.cpp
 test_mut_offset.cpp
 test_xo_2point.cpp
+test_term_fixed_time.cpp
 test_rvar_uniform.cpp
 test_init_rand.cpp
 )

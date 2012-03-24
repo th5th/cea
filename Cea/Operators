@@ -7,6 +7,7 @@
 
 // Additional stdlib stuff needed here.
 #include <algorithm>
+#include <chrono>
 
 namespace cea
 {
@@ -31,7 +32,7 @@ namespace cea
 	// #include "src/ops/mutgeneshuffle.hpp"
 
 	// Terminators
-	// #include "src/ops/termfixedtime.hpp"
+	#include "src/ops/term_fixed_time.hpp"
 	// #include "src/ops/termfitnessthresh.hpp"
 }
 
