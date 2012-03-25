@@ -4,7 +4,7 @@
 
 using namespace cea;
 
-bool test_xo_2point()
+bool test_xo_npoint()
 {
 	alg<std::vector, std::vector, int> alg(8,12);
     auto printer = alg.make_op<print>(5);
@@ -15,7 +15,7 @@ bool test_xo_2point()
 
     prng_kiss p;
     rvar_uniform<unsigned int> xop_src(&p, 0, 12);
-    alg.make_and_push_back<op_xo_2point>(&xop_src, 3);
+    alg.make_and_push_back<op_xo_npoint>(&xop_src, 3);
     alg.push_back(printer);
 
     alg.run_once();

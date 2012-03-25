@@ -24,7 +24,7 @@ namespace cea
 	#include "src/ops/sel_trunc.hpp"
 
 	// Crossovers
-    #include "src/ops/xo_2point.hpp"
+    #include "src/ops/xo_npoint.hpp"
 	// #include "src/ops/xoproportionate.hpp"
     
 	// Mutators

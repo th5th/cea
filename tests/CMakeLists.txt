@@ -39,10 +39,10 @@ all_tests.cpp
 test_sel_trunc.cpp
 test_rvar_normal.cpp
 test_mut_offset.cpp
-test_xo_2point.cpp
 test_term_fixed_time.cpp
 test_rvar_uniform.cpp
 test_init_rand.cpp
+test_xo_npoint.cpp
 )
 add_dependencies(all_tests cog)
 add_library(kstest STATIC kstest.cpp)

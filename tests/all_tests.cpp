@@ -86,8 +86,8 @@ std::cout << " + Test succeeded." << std::endl;
 std::cout << " + Test failed." << std::endl;
 }
 overall_failed |= test_failed;
-std::cout << "Test test_xo_2point():" << std::endl;
-test_failed = test_xo_2point();
+std::cout << "Test test_xo_npoint():" << std::endl;
+test_failed = test_xo_npoint();
 if(!test_failed) {
 std::cout << " + Test succeeded." << std::endl;
 } else {

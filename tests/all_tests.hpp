@@ -24,6 +24,6 @@ bool test_rvar_normal();
 bool test_rvar_uniform();
 bool test_sel_trunc();
 bool test_term_fixed_time();
-bool test_xo_2point();
+bool test_xo_npoint();
 #endif // ALL_TESTS_HPP
 // [[[end]]]
