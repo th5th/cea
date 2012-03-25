@@ -60,16 +60,18 @@ class value_checker
 
 bool test_init_rand()
 {
-    alg<std::vector, std::vector, float> alg_obj(16,6);
+    obj_fact<std::vector, std::vector, float> fact;
+    auto alg_obj = fact.get<alg>(16,6);
+
     // Two identically seeded PRNGs.
     prng_kiss prng1, prng2;
     rvar_uniform<float> r1(&prng1, -2.0, 2.0);
     rvar_uniform<float> r2(&prng2, -2.0, 2.0);
 
-    alg_obj.make_push_back<op_init_rand>(&r1);
+    alg_obj.push_back(fact.get<op_init_rand>(&r1));
 
     bool test_failed = false;
-    alg_obj.make_push_back<value_checker>(test_failed, &r2);
+    alg_obj.push_back(fact.get<value_checker>(test_failed,&r2));
 
     alg_obj.run_once();
 

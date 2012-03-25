@@ -4,20 +4,18 @@ libcea
 Introduction
 ------------
 
-Libcea is a library for running evolutionary algorithms. Currently under heavy development, libcea is being written in C++ with a few tool scripts written in Bash script. It is built with the CMake build system and version-controlled with git (obviously).
+Libcea is a library for running evolutionary algorithms. Currently under heavy development, libcea is being written in C++ with a few tool scripts written in Bash script. It is built with the CMake build system and version-controlled with git (obviously). [Cog][coglink] is used to generate test code from Python embedded in C++ source.
+
+[coglink]: http://nedbatchelder.com/code/cog/
 
 The final aim is a library which can be used to run "quick and dirty" EAs using the provided class templates, or heavily, if not completely, customised algorithms which merely take advantage of the framework and so-called "meta-algorithm" which CEA provides.
 
 Recent Changes
 --------------
 
++ After some fiddling, the `make` and `make_push_back` member functions of `alg` have (probably) been superseded by the `obj_fact` class and its `get<ObjClass>` member function. This allows users to produce compatible `alg` and `op_*` objects easily, without breaking encapsulation.
 + Tests largely redone. Some are only demo cases at the moment, with no value checking undertaken.
-+ Operators reimplemented as functors compatible with alg's `make_op` member.
-+ Fleshed out main cea class, including `make_op` member, which instantiates templated classes (which provide the correct parameters) for use as genetic operators compatible with the calling cea instance.
 + Major redesign to allow populations to be built from _any_ roughly STL compliant containers. Users will write `cea::cea<std::vector, std::list, float> myCeaAlg(num_individuals, num_genes);`, for example.
-+ gentests.py discarded in favour of [Cog][coglink], a third party tool allowing Python to be embedded in C++ (or any) files for code generation.
-
-[coglink]: http://nedbatchelder.com/code/cog/
 
 Todo List
 ---------

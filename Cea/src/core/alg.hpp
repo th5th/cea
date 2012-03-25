@@ -23,6 +23,10 @@ class alg
 
         void clear() { operations.clear(); }
 
+        /*
+         * These functions are deprecated (too soon??) in
+         * favour of the obj_fact.get<ObjClass> idiom.
+         */
         // Useful shorthand for push_back(make_op<op_class>())
         template <template 
         <template <class U1, class U2 = std::allocator<U1> > class _COuter,

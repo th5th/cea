@@ -25,6 +25,9 @@ namespace cea
 	// Core algorithm class.
     #include "src/core/alg.hpp"
 
+    // Object factory to help build algorithms.
+    #include "src/core/obj_fact.hpp"
+
     // Provide debug output.
     #include "src/util/print.hpp"
 }
