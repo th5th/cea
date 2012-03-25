@@ -65,17 +65,17 @@ bool test_sel_trunc()
     alg<std::vector, std::vector, double> alg(13,10);
     // 13*0.36 gives 5 individuals to accept, 8 to reject.
 
-    alg.make_and_push_back<op_init_debug>();
+    alg.make_push_back<op_init_debug>();
     try
     {
-        alg.make_and_push_back<op_sel_trunc>(-15.4);
+        alg.make_push_back<op_sel_trunc>(-15.4);
     }
     catch(std::exception& e)
     {
         std::cout << " | Caught exception: " << e.what() << std::endl;
     }
-    alg.make_and_push_back<op_sel_trunc>(p_sel);
-    alg.make_and_push_back<value_checker>(test_failed, p_sel);
+    alg.make_push_back<op_sel_trunc>(p_sel);
+    alg.make_push_back<value_checker>(test_failed, p_sel);
     
     alg.run_once();
 

@@ -22,6 +22,8 @@ Recent Changes
 Todo List
 ---------
 
-+ Cea/src/ops/xo\_2point.hpp: Allow variable number of children independent of parents.
++ Cea/src/ops/xo\_npoint.hpp: Allow variable number of children independent of parents.
++ Cea/src/ops/xo\_npoint.hpp: Handle parents.size() + children.size() != p.size().
++ Cea/src/ops/xo\_npoint.hpp: Allow list-like genomes to take advantage of their structure by using splce-like operations here.
 + Cea/src/ops/sel\_trunc.hpp: Make op\_sel\_trunc work properly with non-RA iterators.
 + Cea/src/ops/sel\_trunc.hpp: Implementation reorders the population - desirable? 

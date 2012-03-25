@@ -11,8 +11,11 @@
 
 namespace cea
 {
-    // Debug init / eval.
-    #include "src/ops/init_debug.hpp"
+    // Debug ops.
+#ifdef CEA_DEBUG
+    #include "src/ops/debug/init_debug.hpp"
+    // #include "src/ops/debug/profiler.hpp"
+#endif // CEA_DEBUG
 
 	// Initialisers
     #include "src/ops/init_rand.hpp"

@@ -66,10 +66,10 @@ bool test_init_rand()
     rvar_uniform<float> r1(&prng1, -2.0, 2.0);
     rvar_uniform<float> r2(&prng2, -2.0, 2.0);
 
-    alg_obj.make_and_push_back<op_init_rand>(&r1);
+    alg_obj.make_push_back<op_init_rand>(&r1);
 
     bool test_failed = false;
-    alg_obj.make_and_push_back<value_checker>(test_failed, &r2);
+    alg_obj.make_push_back<value_checker>(test_failed, &r2);
 
     alg_obj.run_once();
 

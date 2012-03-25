@@ -9,7 +9,7 @@ using namespace cea;
 
 bool test_term_fixed_time()
 {
-    const int ttl_usec = 100000;
+    const int num_msec = 100;
     const double pass = 0.001;
     using std::chrono::microseconds;
     using std::chrono::milliseconds;
@@ -20,10 +20,10 @@ bool test_term_fixed_time()
 
     prng_kiss prng1;
     rvar_uniform<float> r1(&prng1, -2.0, 2.0);
-    alg_obj.make_and_push_back<op_init_rand>(&r1);
+    alg_obj.make_push_back<op_init_rand>(&r1);
 
-    microseconds ttl(ttl_usec);
-    alg_obj.make_and_push_front<op_term_fixed_time>(duration_cast<milliseconds>(ttl));
+    milliseconds ttl(num_msec);
+    alg_obj.make_push_back<op_term_fixed_time>(ttl);
 
     auto start = high_resolution_clock::now();
     alg_obj.run();
@@ -31,12 +31,12 @@ bool test_term_fixed_time()
 
     std::cout << " | Run time was ";
     std::cout << duration_cast<microseconds>(end).count();
-    std::cout << " compared to a set time of ";
-    std::cout << ttl.count() << std::endl;
+    std::cout << "us compared to a set time of ";
+    std::cout << num_msec*1000 << "us." << std::endl;
 
     bool test_failed = false;
-    if(std::abs(duration_cast<microseconds>(end).count() - ttl.count())
-        > pass*ttl_usec)
+    int delta_t = duration_cast<milliseconds>(end).count() - num_msec;
+    if(std::abs(delta_t) > pass*num_msec)
     {
         test_failed = true;
     }
