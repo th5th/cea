@@ -70,7 +70,7 @@ class alg
         }
 
         // Run operation loop once.
-        void run_once()
+        inline void run_once()
         {
             auto op_it = operations.begin();
             for(; op_it != operations.end(); ++op_it)
@@ -84,14 +84,9 @@ class alg
         {
             // (re)set population's running flag.
             p.running(true);
-            auto op_it = operations.begin();
             while(p.running())
             {
-                (*op_it)(p);
-                if(++op_it == operations.end())
-                {
-                    op_it = operations.begin();
-                }
+                run_once();
                 // do other things?
             }
         }
