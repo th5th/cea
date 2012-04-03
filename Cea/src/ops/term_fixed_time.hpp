@@ -9,8 +9,8 @@ namespace op_term_fixed_time_internal
     using std::chrono::duration_cast;
     using std::chrono::time_point;
 
-    template <template <class U1, class U2 = std::allocator<U1> > class COuter,
-             template <class V1, class V2 = std::allocator<V1> > class CInner,
+    template <template <typename,typename> class COuter,
+             template <typename,typename> class CInner,
              typename T>
     class op_term_fixed_time
     {

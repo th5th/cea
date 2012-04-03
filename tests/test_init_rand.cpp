@@ -4,8 +4,8 @@
 
 using namespace cea;
 
-template <template <class U1, class U2 = std::allocator<U1> > class COuter,
-         template <class V1, class V2 = std::allocator<V1> > class CInner,
+template <template <typename,typename> class COuter,
+         template <typename,typename> class CInner,
          typename T>
 class value_checker
 {
@@ -42,10 +42,10 @@ class value_checker
                     result = true;
                 }
 
-                auto it_gvf = p_it->begin();
-                for(; it_gvf != p_it->end(); ++it_gvf)
+                auto g_it = p_it->begin();
+                for(; g_it != p_it->end(); ++g_it)
                 {
-                    if(*it_gvf != source->rand())
+                    if(*g_it != source->rand())
                     {
                         std::cout << " | Data does not match." << std::endl;
                         result = true;

@@ -16,20 +16,20 @@
 #ifndef CEA_OBJ_FACT_HPP
 #define CEA_OBJ_FACT_HPP
 
-template <template <class U1, class U2 = std::allocator<U1> > class COuter,
-         template <class V1, class V2 = std::allocator<V1> > class CInner,
+template <template <typename,typename> class COuter,
+         template <typename,typename> class CInner,
          typename T>
 class obj_fact
 {
     public:
         template <template 
-        <template <class U1, class U2 = std::allocator<U1> > class _COuter,
-        template <class V1, class V2 = std::allocator<V1> > class _CInner,
+        <template <typename,typename> class _COuter,
+        template <typename,typename> class _CInner,
         typename _T> class OpClass,
-        typename ...ArgTypes>
-        OpClass<COuter,CInner,T> get(ArgTypes ...args)
+        typename ... ArgTypes>
+        OpClass<COuter,CInner,T> get(ArgTypes ... args)
         {
-            OpClass<COuter,CInner,T> inst(args...);
+            OpClass<COuter,CInner,T> inst(args ...);
             return inst;
         }
 };

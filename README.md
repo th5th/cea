@@ -13,6 +13,7 @@ The final aim is a library which can be used to run "quick and dirty" EAs using 
 Recent Changes
 --------------
 
++ Rolled back allocator changes. Will implement later perhaps...
 + After some fiddling, the `make` and `make_push_back` member functions of `alg` have (probably) been superseded by the `obj_fact` class and its `get<ObjClass>` member function. This allows users to produce compatible `alg` and `op_*` objects easily, without breaking encapsulation.
 + Tests largely redone. Some are only demo cases at the moment, with no value checking undertaken.
 + Major redesign to allow populations to be built from _any_ roughly STL compliant containers. Users will write `cea::cea<std::vector, std::list, float> myCeaAlg(num_individuals, num_genes);`, for example.

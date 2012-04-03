@@ -2,8 +2,8 @@
 #ifndef CEA_INIT_DEBUG_HPP
 #define CEA_INIT_DEBUG_HPP
 
-template <template <class U1, class U2 = std::allocator<U1> > class COuter,
-         template <class V1, class V2 = std::allocator<V1> > class CInner,
+template <template <typename,typename> class COuter,
+         template <typename,typename> class CInner,
          typename T>
 class op_init_debug
 {

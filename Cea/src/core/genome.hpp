@@ -2,7 +2,7 @@
 #ifndef CEA_GENOME_HPP
 #define CEA_GENOME_HPP
 
-template <template <class _U, class _V = std::allocator<_U> > class CInner,
+template <template <class U, class V = std::allocator<U>> class CInner,
          typename T>
 class genome
 {
