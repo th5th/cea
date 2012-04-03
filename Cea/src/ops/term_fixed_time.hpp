@@ -4,9 +4,9 @@
 
 namespace op_term_fixed_time_internal
 {
-    using std::chrono::milliseconds;
-    using std::chrono::high_resolution_clock;
     using std::chrono::duration_cast;
+    using std::chrono::high_resolution_clock;
+    using std::chrono::milliseconds;
     using std::chrono::time_point;
 
     template <template <typename,typename> class COuter,

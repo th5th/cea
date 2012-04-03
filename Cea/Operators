@@ -7,14 +7,12 @@
 
 // Additional stdlib stuff needed here.
 #include <algorithm>
-#include <chrono>
 
 namespace cea
 {
     // Debug ops.
 #ifdef CEA_DEBUG
     #include "src/ops/debug/init_debug.hpp"
-    // #include "src/ops/debug/profiler.hpp"
 #endif // CEA_DEBUG
 
 	// Initialisers

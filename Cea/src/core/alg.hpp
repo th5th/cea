@@ -2,91 +2,79 @@
 #ifndef CEA_ALG_HPP
 #define CEA_ALG_HPP
 
-template <template <typename,typename> class COuter,
-         template <typename,typename> class CInner,
-         typename T>
-class alg
+namespace alg_internal
 {
-    public:
-        typedef typename std::function<void(pop<COuter,CInner,T>&)> op_type;
+    using std::chrono::duration;
+    using std::chrono::high_resolution_clock;
+    using std::chrono::nanoseconds;
+    using std::chrono::time_point;
 
-        alg(int p_s, int g_s) : p(p_s, g_s)
-        {
-            operations.reserve(10);
-        }
+    // Exponential smoothing factor for times.
+    const double ALPHA = 0.1;
 
-        alg(int p_s, int g_s, std::vector<op_type> ops)
-            : operations(ops), p(p_s, g_s) { }
+    template <template <typename,typename> class COuter,
+             template <typename,typename> class CInner,
+             typename T>
+    class alg
+    {
+        public:
+            typedef typename std::function<void(pop<COuter,CInner,T>&)>
+                op_type;
 
-        void push_back(op_type op) { operations.push_back(op); }
-        void pop_back() { operations.pop_back(); }
-
-        void clear() { operations.clear(); }
-
-        /*
-         * These functions are deprecated (too soon??) in
-         * favour of the obj_fact.get<ObjClass> idiom.
-         */
-        // Useful shorthand for push_back(make_op<op_class>())
-        template <template 
-        <template <class U1, class U2 = std::allocator<U1> > class _COuter,
-        template <class V1, class V2 = std::allocator<V1> > class _CInner,
-        typename _T> class OpClass,
-        typename ...ArgTypes>
-        void make_push_back(ArgTypes ...args)
-        {
-            OpClass<COuter,CInner,T> inst(args...);
-            operations.push_back(inst);
-        }
-
-        /*
-         * op_type make(ArgTypes ...args)
-         *
-         * Helper member function to construct operator function objects
-         * compatible with this instance of the alg class. Instantiates
-         * a templated operator class OpClass with the previously provided
-         * classes COuter, CInner and T.
-         *
-         * Can be used like:
-         * auto some_op = alg_obj.make<op_class>(args,to,constructor);
-         * alg_obj.push_back(some_op);
-         */
-        template <template 
-        <template <class U1, class U2 = std::allocator<U1> > class _COuter,
-        template <class V1, class V2 = std::allocator<V1> > class _CInner,
-        typename _T> class OpClass,
-        typename ...ArgTypes>
-        inline op_type make(ArgTypes ...args)
-        {
-            OpClass<COuter,CInner,T> inst(args...);
-            return inst;
-        }
-
-        // Run operation loop once.
-        inline void run_once()
-        {
-            auto op_it = operations.begin();
-            for(; op_it != operations.end(); ++op_it)
+            alg(int p_s, int g_s) : p(p_s, g_s)
             {
-                (*op_it)(p);
+                operations.reserve(10);
             }
-        }
 
-        // Run operation loop until p.running() is set false be loop body.
-        void run()
-        {
-            // (re)set population's running flag.
-            p.running(true);
-            while(p.running())
+            alg(int p_s, int g_s, std::vector<op_type> ops)
+                : operations(ops), p(p_s, g_s) { }
+
+            void push_back(op_type op) { operations.push_back(op); }
+            void pop_back() { operations.pop_back(); }
+
+            void clear() { operations.clear(); }
+
+            // Run operation loop once.
+            inline void run_once()
             {
-                run_once();
-                // do other things?
-            }
-        }
+                times.resize(operations.size());
+                time_point<high_resolution_clock> start;
 
-    private:
-        std::vector<op_type> operations;
-        pop<COuter,CInner,T> p;
-};
+                auto op_it = operations.begin();
+                for(int i = 0; op_it != operations.end(); ++op_it, ++i)
+                {
+                    start = high_resolution_clock::now();
+                    (*op_it)(p);
+                    nanoseconds delta_t = high_resolution_clock::now() - start;
+
+                    uint64_t smooth_num_ticks = static_cast<uint64_t>(
+                            std::round(ALPHA*delta_t.count()));
+                    smooth_num_ticks += static_cast<uint64_t>(
+                            std::round((1-ALPHA)*times[i].count()));
+                    times[i] = nanoseconds(smooth_num_ticks);
+                }
+            }
+
+            // Run operation loop until p.running() is set false be loop body.
+            void run()
+            {
+                p.running(true);
+                while(p.running())
+                {
+                    run_once();
+                    // Output times etc.
+                }
+            }
+
+        private:
+            std::vector<nanoseconds> times;
+
+            std::vector<op_type> operations;
+
+            pop<COuter,CInner,T> p;
+    };
+}
+
+using alg_internal::alg;
 
 #endif // CEA_ALG_HPP

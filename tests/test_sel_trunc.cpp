@@ -5,8 +5,8 @@
 
 using namespace cea;
 
-template <template <class U1, class U2 = std::allocator<U1> > class COuter,
-         template <class V1, class V2 = std::allocator<V1> > class CInner,
+template <template <typename,typename> class COuter,
+         template <typename,typename> class CInner,
          typename T>
 class value_checker
 {
@@ -62,22 +62,23 @@ bool test_sel_trunc()
 {
     double p_sel = 0.36;
     bool test_failed = false;
-    alg<std::vector, std::vector, double> alg(13,10);
+    obj_fact<std::vector, std::vector, double> fact;
+    auto alg_obj = fact.get<alg>(13,10);
     // 13*0.36 gives 5 individuals to accept, 8 to reject.
 
-    alg.make_push_back<op_init_debug>();
+    alg_obj.push_back(fact.get<op_init_debug>());
     try
     {
-        alg.make_push_back<op_sel_trunc>(-15.4);
+        alg_obj.push_back(fact.get<op_sel_trunc>(-15.4));
     }
     catch(std::exception& e)
     {
         std::cout << " | Caught exception: " << e.what() << std::endl;
     }
-    alg.make_push_back<op_sel_trunc>(p_sel);
-    alg.make_push_back<value_checker>(test_failed, p_sel);
+    alg_obj.push_back(fact.get<op_sel_trunc>(p_sel));
+    alg_obj.push_back(fact.get<value_checker>(test_failed, p_sel));
     
-    alg.run_once();
+    alg_obj.run_once();
 
     return test_failed;
 }

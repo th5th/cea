@@ -16,14 +16,15 @@ bool test_term_fixed_time()
     using std::chrono::high_resolution_clock;
     using std::chrono::duration_cast;
 
-    alg<std::vector, std::list, float> alg_obj(16,6);
+    obj_fact<std::vector, std::list, float> fact;
+    auto alg_obj = fact.get<alg>(16,6);
 
     prng_kiss prng1;
     rvar_uniform<float> r1(&prng1, -2.0, 2.0);
-    alg_obj.make_push_back<op_init_rand>(&r1);
+    alg_obj.push_back(fact.get<op_init_rand>(&r1));
 
     milliseconds ttl(num_msec);
-    alg_obj.make_push_back<op_term_fixed_time>(ttl);
+    alg_obj.push_back(fact.get<op_term_fixed_time>(ttl));
 
     auto start = high_resolution_clock::now();
     alg_obj.run();

@@ -6,19 +6,22 @@ using namespace cea;
 
 bool test_xo_npoint()
 {
-	alg<std::vector, std::vector, int> alg(8,12);
-    auto printer = alg.make<print>(5);
-    alg.make_push_back<op_init_debug>();
-    alg.push_back(printer);
-    alg.make_push_back<op_sel_trunc>(0.5);
-    alg.push_back(printer);
+	obj_fact<std::vector, std::vector, int> fact;
+    auto alg_obj = fact.get<alg>(8,12);
+
+    auto printer = fact.get<print>(5);
+
+    alg_obj.push_back(fact.get<op_init_debug>());
+    alg_obj.push_back(printer);
+    alg_obj.push_back(fact.get<op_sel_trunc>(0.5));
+    alg_obj.push_back(printer);
 
     prng_kiss p;
     rvar_uniform<unsigned int> xop_src(&p, 0, 12);
-    alg.make_push_back<op_xo_npoint>(&xop_src, 3);
-    alg.push_back(printer);
+    alg_obj.push_back(fact.get<op_xo_npoint>(&xop_src, 3));
+    alg_obj.push_back(printer);
 
-    alg.run_once();
+    alg_obj.run_once();
     bool test_failed = true;
     /*
     // Check results.
