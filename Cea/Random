@@ -62,7 +62,7 @@ namespace cea
 		private:
 			// Fake state stored here.
             std::vector<T> output;
-            int i;
+            unsigned int i;
 	};
 #endif // CEA_DEBUG
 }
