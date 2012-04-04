@@ -27,8 +27,10 @@ class obj_fact
         template <typename,typename> class _CInner,
         typename _T> class OpClass,
         typename ... ArgTypes>
-        OpClass<COuter,CInner,T> get(ArgTypes ... args)
+        OpClass<COuter,CInner,T> get(ArgTypes && ... args)
         {
+            // Use rvalue references for perfect forwarding
+            // of args to OpClass constructor.
             OpClass<COuter,CInner,T> inst(args ...);
             return inst;
         }
