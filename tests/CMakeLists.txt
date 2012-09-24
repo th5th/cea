@@ -1,4 +1,4 @@
-# Cmakelists.txt generated using the Ned Batchelder's Cog inline 
+# Cmakelists.txt generated using Ned Batchelder's Cog inline 
 # code generation tool. See http://nedbatchelder.com/code/cog/
 
 include_directories(${PROJECT_SOURCE_DIR})
@@ -39,6 +39,7 @@ all_tests.cpp
 test_sel_trunc.cpp
 test_rvar_normal.cpp
 test_mut_offset.cpp
+test_point_spread.cpp
 test_term_fixed_time.cpp
 test_rvar_uniform.cpp
 test_init_rand.cpp

@@ -23,7 +23,7 @@ class print
                 for(; g_it != p_it->end(); ++g_it)
                 {
                     std::cout.width(width);
-                    std::cout.precision(2);
+                    std::cout.precision(4);
                     std::cout << std::fixed << *g_it;
                 }
                 std::cout << " |";

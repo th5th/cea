@@ -1,4 +1,4 @@
-// This file generated using the Ned Batchelder's Cog inline 
+// This file generated using Ned Batchelder's Cog inline 
 // code generation tool. See http://nedbatchelder.com/code/cog/
 
 /* [[[cog
@@ -20,6 +20,7 @@
 #define ALL_TESTS_HPP
 bool test_init_rand();
 bool test_mut_offset();
+bool test_point_spread();
 bool test_rvar_normal();
 bool test_rvar_uniform();
 bool test_sel_trunc();

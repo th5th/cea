@@ -1,4 +1,4 @@
-// This file generated using the Ned Batchelder's Cog inline 
+// This file generated using Ned Batchelder's Cog inline 
 // code generation tool. See http://nedbatchelder.com/code/cog/
 
 #include <iostream>
@@ -48,6 +48,14 @@ std::cout << " + Test failed." << std::endl;
 overall_failed |= test_failed;
 std::cout << "Test test_mut_offset():" << std::endl;
 test_failed = test_mut_offset();
+if(!test_failed) {
+std::cout << " + Test succeeded." << std::endl;
+} else {
+std::cout << " + Test failed." << std::endl;
+}
+overall_failed |= test_failed;
+std::cout << "Test test_point_spread():" << std::endl;
+test_failed = test_point_spread();
 if(!test_failed) {
 std::cout << " + Test succeeded." << std::endl;
 } else {
